@@ -17,12 +17,11 @@ return $weather34timeago;}?>
 <body>
 <div class="simsekcontainer">
 <div class="simsekdata">Strikes</div>
-<?php //weather34 sez lets make the temperature look nice 
-if($weather["lightningmax"]>0){echo '<div class=simsek>'.number_format($weather["lightningmax"],0,',','');}
-else if($weather["lightningmax"]==0){echo '<div class=simsek>'.number_format($weather["lightning2max"],0,',','');}?>
-</smalltempunit></div>
+<?php 
+//strikes 
+{echo '<div class=simsek>'.number_format($weather["lightningday"],0,',','');}
+?></div>
 <div class="simsektoday"><valuetext>Today</valuetext></div></div></div>
-
 <div class="lightninginfo">
 Strikes Recorded
 <?php //weatherflow air lightning month current
@@ -36,10 +35,10 @@ else if ($lightningseconds >=61 ) echo "<timeago>Last Strike Detected<br> <agoli
 <div class="rainconverter">
 <?php
 //distance
-if(strlen($weather["lightningkm"])==0){echo "<div class=tempconvertercirclegreen>  <smallrainunit>&nbsp;km</smallrainunit>";}
-else if($weather["lightningkm"]<5)  {echo "<div class=tempconvertercirclered>".$weather["lightningkm"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
-else if($weather["lightningkm"]<30) {echo "<div class=tempconvertercircleorange>".$weather["lightningkm"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
-else if($weather["lightningkm"]<100){echo "<div class=tempconvertercircleyellow>".$weather["lightningkm"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
+if(strlen($weather["lightning_distance"])==0){echo "<div class=tempconvertercirclegreen>  <smallrainunit>&nbsp;km</smallrainunit>";}
+else if($weather["lightning_distance"]<5)    {echo "<div class=tempconvertercirclered>".$weather["lightning_distance"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
+else if($weather["lightning_distance"]<30)   {echo "<div class=tempconvertercircleorange>".$weather["lightning_distance"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
+else if($weather["lightning_distance"]<100)  {echo "<div class=tempconvertercircleyellow>".$weather["lightning_distance"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
 ?></div>
 <?php
 //energy

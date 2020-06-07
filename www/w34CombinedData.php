@@ -63,7 +63,6 @@
 	$weather["wind_direction"]     = number_format($weewxrt[7],0);
 	$weather["wind_direction_avg"] = number_format($weewxapi[46],0);
 	$weather["wind_speed"]         = number_format($weewxrt[6]); // Instant Wind Speed
-	$weather["wind_gust_60min"]    = $weewxapi[201]; // Wind Speed Gust - Max speed of last 60 minutes    
 	$weather["wind_gust_10min"]    = $weewxapi[40]; // Wind Speed Gust - Max speed of last 10 minutes
 	$weather["wind_gust_speed"]    = $weewxapi[40]; // 
 	$weather["wind_speed_bft"]     = $weewxrt[12];
@@ -120,10 +119,8 @@ if ($weather["moonphase"]==0) {$weather["moonphase"]='New Moon';}else if ($weath
 	$weather["lightning_disturber_count"] = $weewxrt[62];
 
 	// weatherflow lightning
-	$weather["lightningkm"]        = $weewxrt[58];
-	$weather["lightningmax"]       = $weewxrt[60];
-	$weather["lightningmaxdist"]   = $weewxapi[76];
 	$weather["lightningtimeago"]   = $weewxapi[77];
+	$weather["lightningday"]       = $weewxapi[76];
 	$weather["lightningmonth"]     = $weewxapi[74];
 	$weather["lightningyear"]      = $weewxapi[75];
 	
