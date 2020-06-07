@@ -70,7 +70,7 @@
 	  #else if $almanac.moon_phase.lower() == "Waning Crescent".lower()
             #set $moonphase = "7"
           #end if 
-          #import time
+          #import time,datetime
 #set almost_end = $rainyear.end.raw - 1
 #set almost_end_tt = $time.localtime($almost_end)
 #######################SAME ORDER AS METEOBRIDGEAPI
@@ -125,10 +125,10 @@ $weewxapi[70] = "$span(time_delta=900).inTemp.avg.format(add_label=False, $local
 $weewxapi[71] = "$span(time_delta=900).inHumidity.avg.format(add_label=False, $localize=False)";
 $weewxapi[72] = "$span($time_delta=900).windSpeed.avg.format(add_label=False, $localize=False)";
 $weewxapi[73] = "$span($time_delta=1800).windSpeed.avg.format(add_label=False, $localize=False)";
-$weewxapi[74] = "N/A";
-$weewxapi[75] = "N/A";
-$weewxapi[76] = "N/A";
-$weewxapi[77] = "N/A";
+$weewxapi[74] = "$month.lightning_strike_count.max.format(add_label=False, $localize=False)";	
+$weewxapi[75] = "$year.lightning_strike_count.max.format(add_label=False, $localize=False)";	
+$weewxapi[76] = "$year.lightning_distance.max.format(add_label=False, $localize=False)";	
+$weewxapi[77] = $int(time.time()-time.mktime(datetime.datetime.strptime($year.lightning_strike_count.maxtime.format(format_string="%Y%m%d%H%M%S"),"%Y%m%d%H%M%S").timetuple()));
 $weewxapi[78] = "N/A";
 $weewxapi[79] = "N/A";
 $weewxapi[80] = "$day.radiation.max.format(add_label=False, $localize=False)";
