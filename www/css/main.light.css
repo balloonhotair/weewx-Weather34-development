@@ -5520,9 +5520,7 @@ topdaqi1,
 topdaqi2,
 topdaqi3,
 topdaqi4,
-topdaqi5,
-topdaqi6,
-topdaqi7 {
+topdaqi5 {
   font-family: weathertext2;
   width: 3.3rem;
   height: 2.4rem;
@@ -5550,6 +5548,8 @@ toporange1,
 topred1,
 topyellow1,
 topyellow2,
+topdaqi6,
+topdaqi7,
 topdaqi8,
 topdaqi9,
 topdaqi10 {
@@ -5637,7 +5637,7 @@ topdaqi9 {
 }
 
 topdaqi10 {
-  background: #900
+  background: #ce30ff
 }
 
 topred1 {
