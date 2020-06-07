@@ -36,15 +36,15 @@ else if ($lightningseconds >=61 ) echo "<timeago>Last Strike Detected<br> <agoli
 <div class="rainconverter">
 <?php
 //distance
-if($weather["lightningkm"]==0)      {echo "<div class=tempconvertercirclered>  <smallrainunit>km</smallrainunit>";}
-else if($weather["lightningkm"]<5)  {echo "<div class=tempconvertercirclered>".$weather["lightningkm"]."<smallrainunit>km</smallrainunit>" ;}
-else if($weather["lightningkm"]<30) {echo "<div class=tempconvertercircleorange>".$weather["lightningkm"]."<smallrainunit>km</smallrainunit>" ;}
-else if($weather["lightningkm"]<100){echo "<div class=tempconvertercircleyellow>".$weather["lightningkm"]."<smallrainunit>km</smallrainunit>" ;}
+if(strlen($weather["lightningkm"])==0){echo "<div class=tempconvertercirclegreen>  <smallrainunit>&nbsp;km</smallrainunit>";}
+else if($weather["lightningkm"]<5)  {echo "<div class=tempconvertercirclered>".$weather["lightningkm"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
+else if($weather["lightningkm"]<30) {echo "<div class=tempconvertercircleorange>".$weather["lightningkm"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
+else if($weather["lightningkm"]<100){echo "<div class=tempconvertercircleyellow>".$weather["lightningkm"]."<smallrainunit>&nbsp;km</smallrainunit>" ;}
 ?></div>
 <?php
 //energy
-if($weather["lightning_energy"]==0)        {echo "<div class=tempconvertercirclered>  <smallrainunit>energy</smallrainunit>";}
-else if($weather["lightning_energy"]<10000){echo "<div class=tempconvertercircleyellow>".$weather["lightning_energy"]."<smallrainunit>energy</smallrainunit>" ;}
-else if($weather["lightning_energy"]<20000){echo "<div class=tempconvertercircleorange>".$weather["lightning_energy"]."<smallrainunit>energy</smallrainunit>" ;}
-else if($weather["lightning_energy"]>20000){echo "<div class=tempconvertercirclered>".$weather["lightning_energy"]."<smallrainunit>energy</smallrainunit>" ;}
+if($weather["lightning_energy"]==0)        {echo "<div class=tempconvertercirclegreen>  <smallrainunit>&nbsp;MJ/m</smallrainunit>";}
+else if($weather["lightning_energy"]<10000){echo "<div class=tempconvertercircleyellow>".$weather["lightning_energy"]."<smallrainunit>&nbsp;MJ/m</smallrainunit>" ;}
+else if($weather["lightning_energy"]<20000){echo "<div class=tempconvertercircleorange>".$weather["lightning_energy"]."<smallrainunit>&nbsp;MJ/m</smallrainunit>" ;}
+else if($weather["lightning_energy"]>20000){echo "<div class=tempconvertercirclered>".$weather["lightning_energy"]."<smallrainunit>&nbsp;MJ/m</smallrainunit>" ;}
 ?></div>
