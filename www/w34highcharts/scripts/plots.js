@@ -595,7 +595,7 @@ function reinflate_time(series, ts_start = null, returnDate = false){
 function remove_zero_dps(seriesData){
     data = [];
     for (var i = 0; i < seriesData.length; i++)
-        if (i == 0 || i == seriesData.length -1 || seriesData[i][1] > 0)
+        if (i == 0 || i == seriesData.length -1 || seriesData[i][1] > 0 || i % 1000 == 0)
             data.push(seriesData[i]);
     return data;
 }
@@ -1220,7 +1220,7 @@ function create_rain_month_chart(options, span, seriesData, units){
 
 function create_lightning_chart(options, span, seriesData, units){
     if (span[0] == "yearly"){
-        options = create_chart_options(options, 'column', 'Lightning Distance/Strikes/Energy Max & Avg/Cnt', null, [['Distance Max', 'column'], ['Distance Avg', 'column'], ['Strikes Cnt', 'column',1], ['Energy Max', 'column',2], ['Energy Avg', 'column',2]]);
+        options = create_chart_options(options, 'column', 'Lightning Distance/Strikes/Energy Max & Avg/Cnt', null, [['Distance Max', 'column',1], ['Distance Avg', 'column',1], ['Strikes Cnt', 'column'], ['Energy Max', 'column',2], ['Energy Avg', 'column',2]]);
         options.series[0].data = remove_zero_dps(reinflate_time(seriesData[0].lightningplot.distanceMax));
         options.series[1].data = remove_zero_dps(reinflate_time(seriesData[0].lightningplot.distanceAvg));
         options.series[2].data = remove_zero_dps(reinflate_time(seriesData[0].lightningplot.strikeCount));
@@ -1243,7 +1243,7 @@ function create_lightning_chart(options, span, seriesData, units){
     }
     options.yAxis[0].min = 0;
     options.yAxis[0].title.text = "Strikes";
-    options.yAxis[0].allowDecimals = true;
+    options.yAxis[0].allowDecimals = false;
     options.yAxis[1].min = 0;
     options.yAxis[1].title.text = "Distance";
     options.yAxis[1].allowDecimals = true;
@@ -1277,7 +1277,7 @@ function create_lightning_month_chart(options, span, seriesData, units){
     options.yAxis[0].title.text = "Strikes";
     options.yAxis[0].min = 0;
     options.yAxis[0].tickInterval = 1;
-    options.yAxis[0].allowDecimals = true;
+    options.yAxis[0].allowDecimals = false;
     options.xAxis[0].minTickInterval =0;
     options.xAxis[0].type ='category';
     options.xAxis[0].labels = {formatter: function (){return month_name[this.value]}};
