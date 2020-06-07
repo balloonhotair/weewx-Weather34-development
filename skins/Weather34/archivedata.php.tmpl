@@ -127,9 +127,9 @@ $weewxapi[72] = "$span($time_delta=900).windSpeed.avg.format(add_label=False, $l
 $weewxapi[73] = "$span($time_delta=1800).windSpeed.avg.format(add_label=False, $localize=False)";
 $weewxapi[74] = "$month.lightning_strike_count.max.format(add_label=False, $localize=False)";	
 $weewxapi[75] = "$year.lightning_strike_count.max.format(add_label=False, $localize=False)";	
-$weewxapi[76] = "$year.lightning_distance.max.format(add_label=False, $localize=False)";	
+$weewxapi[76] = "$day.lightning_strike_count.max.format(add_label=False, $localize=False)";	
 $weewxapi[77] = $int(time.time()-time.mktime(datetime.datetime.strptime($year.lightning_strike_count.maxtime.format(format_string="%Y%m%d%H%M%S"),"%Y%m%d%H%M%S").timetuple()));
-$weewxapi[78] = "N/A";
+$weewxapi[78] = "N/A";	
 $weewxapi[79] = "N/A";
 $weewxapi[80] = "$day.radiation.max.format(add_label=False, $localize=False)";
 $weewxapi[81] = "$stationuptime";
