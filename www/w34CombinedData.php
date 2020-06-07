@@ -52,7 +52,7 @@
 	$weather["solar"]              = round($weewxrt[45],1);
 	$weather["temp"]               = $weewxrt[2];
 	$weather["apptemp"]            = $weewxrt[54];
-	$weather["heatindex"]         = $weewxrt[41];
+	$weather["heatindex"]          = $weewxrt[41];
 	$weather["windchill"]          = $weewxrt[24];
 	$weather["humidity"]           = number_format($weewxrt[3],0);	
 	$weather["temp_today_high"]    = $weewxapi[26];
@@ -63,7 +63,6 @@
 	$weather["wind_direction"]     = number_format($weewxrt[7],0);
 	$weather["wind_direction_avg"] = number_format($weewxapi[46],0);
 	$weather["wind_speed"]         = number_format($weewxrt[6]); // Instant Wind Speed
-	$weather["wind_gust_60min"]    = $weewxapi[201]; // Wind Speed Gust - Max speed of last 60 minutes    
 	$weather["wind_gust_10min"]    = $weewxapi[40]; // Wind Speed Gust - Max speed of last 10 minutes
 	$weather["wind_gust_speed"]    = $weewxapi[40]; // 
 	$weather["wind_speed_bft"]     = $weewxrt[12];
@@ -113,20 +112,19 @@ if ($weather['luminance']<100){$weather['luminance']=$weather['luminance'];}
 //weather34 convert weewx lunar segment
 if ($weather["moonphase"]==0) {$weather["moonphase"]='New Moon';}else if ($weather["moonphase"]==1) {$weather["moonphase"]='Waxing Crescent';}else if ($weather["moonphase"]==2 ) {$weather["moonphase"]='First Quarter';}else if ($weather["moonphase"]==3 ) {$weather["moonphase"]='Waxing Gibbous';}else if ($weather["moonphase"]==4 ) {$weather["moonphase"]='Full Moon';}else if ($weather["moonphase"]==5) {$weather["moonphase"]='Waning Gibbous';}else if ($weather["moonphase"]==6) {$weather["moonphase"]='Last Quarter';}else if ($weather["moonphase"]==7){$weather["moonphase"]='Waning Crescent';}
 	
-	$weather["lightning_distance"]        = $weewxapi[57];
-	$weather["lightning_energy"]          = $weewxapi[58];
-	$weather["lightning_strike_count"]    = $weewxapi[59];
-	$weather["lightning_noise_count"]     = $weewxapi[60];
-	$weather["lightning_disturber_count"] = $weewxapi[61];
+	$weather["lightning_distance"]        = $weewxrt[58];
+	$weather["lightning_energy"]          = $weewxrt[59];
+	$weather["lightning_strike_count"]    = $weewxrt[60];
+	$weather["lightning_noise_count"]     = $weewxrt[61];
+	$weather["lightning_disturber_count"] = $weewxrt[62];
 
 	// weatherflow lightning
-	$weather["lightning"]          = $weewxapi[76];
-	$weather["lightningkm"]        = $weewxapi[75];
-	$weather["lightningmax"]       = $weewxapi[77];
-	$weather["lightningmaxdist"]   = $weewxapi[75];
-	$weather["lightningtimeago"]   = $weewxapi[76];
-	$weather["lightningmonth"]     = $weewxapi[78];
-	$weather["lightningyear"]      = $weewxapi[79];
+	$weather["lightningkm"]        = $weewxrt[58];
+	$weather["lightningmax"]       = $weewxrt[60];
+	$weather["lightningmaxdist"]   = $weewxapi[76];
+	$weather["lightningtimeago"]   = $weewxapi[77];
+	$weather["lightningmonth"]     = $weewxapi[74];
+	$weather["lightningyear"]      = $weewxapi[75];
 	
 	$originalDate = $weewxapi[83];
     $tempydmaxtime = date("H:i", strtotime($originalDate));
