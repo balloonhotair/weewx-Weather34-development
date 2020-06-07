@@ -11,3 +11,4 @@
 7. Code cleanup lightning variables & css tweaks for lightning
 8. Added lightning monthly chart
 9. Add missing y axis label for lightning
+10.Additional lightning label changes
