@@ -8,3 +8,4 @@
 4. CSS additions in preparation for future planned air quality module options
 5. Updated settings.php to next version code **W34-HC-IMJD-2.0.0**
 6. Added lightning chart links to index.php
+7. Code cleanup lightning variables & css tweaks for lightning
