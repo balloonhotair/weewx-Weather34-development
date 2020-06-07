@@ -10,3 +10,4 @@
 6. Added lightning chart links to index.php
 7. Code cleanup lightning variables & css tweaks for lightning
 8. Added lightning monthly chart
+9. Add missing y axis label for lightning
