@@ -1025,6 +1025,12 @@ class w34highchartsYear(SearchList):
         time_ms =  [outTemp_time_vt[0][0] if (x == 0) else outTemp_time_vt[0][x] - outTemp_time_vt[0][0] for x in range(len(outTemp_time_vt[0]))]
         #time_ms =  [float(x) * 1000 for x in outTemp_time_vt[0]]
 
+        (lightning_time_vt, lightning_dict) = getDaySummaryVectors(db_lookup(), 'lightning_strike_count', _timespan, ['sum'])
+        lightningSum_vt = self.generator.converter.convert(lightning_dict['sum'])
+        lightningPlaces = int(self.generator.skin_dict['Units']['StringFormats'].get(lightningSum_vt[1], "1f")[-2])
+        lightningSumRound = [roundNone(x,lightningPlaces) for x in lightningSum_vt[0]]
+        lightningSum_json = json.dumps(list(zip(time_ms, lightningSumRound)))
+
         # Round our values from our ValueTuples
         outTempMinRound = [roundNone(x,tempPlaces) for x in outTempMin_vt[0]]
         outTempMaxRound = [roundNone(x,tempPlaces) for x in outTempMax_vt[0]]
@@ -1351,6 +1357,7 @@ class w34highchartsYear(SearchList):
                                  'distanceAvg_json' : distanceAvg_json,
                                  'energyMax_json' : energyMax_json,
                                  'energyAvg_json' : energyAvg_json,
+                                 'lightningSum_json' : lightningSum_json,
                                  'full_spectrumMax_json' : full_spectrumMax_json,
                                  'full_spectrumAvg_json' : full_spectrumAvg_json,
                                  'luxMax_json' : luxMax_json,
