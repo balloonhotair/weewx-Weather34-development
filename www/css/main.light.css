@@ -4934,7 +4934,7 @@ body {
 .rainconverter,
 .tempconverter {
   margin-top: 5px;
-  margin-left: 253px
+  margin-left: 245px
 }
 
 .consoleicon {
@@ -5063,7 +5063,7 @@ smallrainunit {
   align-items: center;
   justify-content: center;
   height: 1.1rem;
-  width: 3.4rem;
+  width: 4.2rem;
   border: 2px solid #e6e8ef;
   overflow: hidden;
   border-radius: 4px;

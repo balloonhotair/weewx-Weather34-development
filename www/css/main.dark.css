@@ -5009,7 +5009,7 @@ body {
 .rainconverter,
 .tempconverter {
   margin-top: 5px;
-  margin-left: 255px
+  margin-left: 245px
 }
 
 .consoleicon {
@@ -5132,7 +5132,7 @@ redtime {
 .tempconvertercirclered,
 .tempconvertercircleyellow {
   align-items: center;
-  width: 3.2rem;
+  width: 4.2rem;
   color: silver;
   font-family: weathertext2;
   height: 1rem;
