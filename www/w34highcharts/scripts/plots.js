@@ -21,6 +21,7 @@ var createweeklyfunctions = {
     winddirplot: [addWeekOptions, create_winddir_chart],
     windroseplot: [addWindRoseOptions, setWindRose, create_windrose_chart],
     lightningplot: [addWeekOptions, create_lightning_chart],
+    lightningmonthplot: [create_lightning_month_chart],
     rainplot: [addWeekOptions, create_rain_chart],
     rainmonthplot: [create_rain_month_chart],
     luminosityplot: [addWeekOptions, create_luminosity_chart],
@@ -57,6 +58,7 @@ var createyearlyfunctions = {
     rainmonthplot: [create_rain_month_chart],
     rainsmallplot: [addYearOptions, setRainSmall, create_rain_chart],
     lightningplot: [addYearOptions, create_lightning_chart],
+    lightningmonthplot: [create_lightning_month_chart],
     luminosityplot: [addYearOptions, create_luminosity_chart],
     radiationplot: [addYearOptions, create_radiation_chart],
     raduvplot: [addYearOptions, create_raduv_chart],
@@ -72,6 +74,7 @@ var postcreatefunctions = {
     windsmallplot: [post_create_small_chart],
     rainsmallplot: [post_create_small_chart],
     rainmonthplot: [remove_range_selector],
+    lightningmonthplot: [remove_range_selector],
     radsmallplot: [post_create_small_chart],
     uvsmallplot: [post_create_small_chart],
     windroseplot: [post_create_windrose_chart]
@@ -99,6 +102,7 @@ var jsonfileforplot = {
     rainmonthplot: [['year.json'],['year.json']],
     rainsmallplot: [['bar_rain_week.json'],['year.json']],
     lightningplot: [['bar_rain_week.json'],['year.json']],
+    lightningmonthplot: [['year.json'],['year.json']],
     luminosityplot: [['solar_week.json'],['year.json']],
     radiationplot: [['solar_week.json'],['year.json']],
     raduvplot: [['solar_week.json'],['year.json']],
@@ -113,7 +117,7 @@ var humcolors = [[0,"#3369e7"],[10,"#3b9cac"],[20,"#00a4b4"],[30,"#00a4b4"],[40,
 var barcolors = [[28.0,"#3369e7"],[28.25,"#3b9cac"],[28.5,"#00a4b4"],[28.75,"#00a4b4"],[29.0,"#88b04b"],[29.25,"#e6a141"],[29.5,"#ff7c39"],[29.75,"#efa80f"],[30.0,"#d05f2d"],[30.25,"#d86858"],[30.5,"#fd7641"],[30.75,"#de2c52"],[31,"#de2c52"]];
 var windcolors = [[0,"#3369e7"],[2.5,"#3b9cac"],[5,"#00a4b4"],[7.5,"#00a4b4"],[10,"#88b04b"],[12.5,"#e6a141"],[15,"#ff7c39"],[17.5,"#efa80f"],[20,"#d05f2d"],[22.5,"#d86858"],[25,"#fd7641"],[27.5,"#de2c52"],[30,"#de2c52"]];
 var aqcolors = [[50,"#90b12a"],[100,"#ba923a"],[150,"#ff7c39"],[200,"#ff7c39"],[300,"#916392"],[400,"#d05041"]];
-var plotsnoswitch = ['rainmonthplot','windroseplot','bartempwindplot','windbarplot'];
+var plotsnoswitch = ['rainmonthplot','lightningmonthplot','windroseplot','bartempwindplot','windbarplot'];
 var radialplots = ['dewpointplot','temperatureplot','indoorplot','humidityplot','barometerplot','tempderivedplot','apparentplot','windplot','airqualityplot'];
 var compareplots = ['dewpointplot','temperatureplot','tempallplot','indoorplot','humidityplot','barometerplot','tempderivedplot','apparentplot','windplot','lightningplot','luminosityplot','radiationplot','uvplot','airqualityplot'];
 var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1247,6 +1251,35 @@ function create_lightning_chart(options, span, seriesData, units){
     options.yAxis[2].title.text = "Energy";
     options.yAxis[2].allowDecimals = true;
     options.xAxis[0].minTickInterval =0;
+    return options;
+};
+
+function create_lightning_month_chart(options, span, seriesData, units){
+    var data = reinflate_time(seriesData[0].lightningplot.lightningsum);
+    var index = 0;
+    var month_data = [];
+    var month_name = [];
+    month_name[index] = getTranslation(monthNames[new Date(data[0][0]).getMonth()]);
+    month_data[index] = data[0][1];
+    for (var i = 1; i < data.length; i++){
+        var new_month = getTranslation(monthNames[new Date(data[i][0]).getMonth()]);
+        if (month_name[index] != new_month){
+            index  +=1;
+            month_name[index] = new_month;
+            month_data[index] = data[i][1];
+        }
+        else
+           month_data[index] +=  data[i][1];
+    }
+    options = create_chart_options(options, 'column', 'Monthly Lightning Strikes',null,[['Lightning Strikes', 'column']], month_name);
+    options.series[0].data = month_data;
+    options.plotOptions.column.pointWidth = 50;
+    options.yAxis[0].min = 0;
+    options.yAxis[0].tickInterval = 1;
+    options.yAxis[0].allowDecimals = true;
+    options.xAxis[0].minTickInterval =0;
+    options.xAxis[0].type ='category';
+    options.xAxis[0].labels = {formatter: function (){return month_name[this.value]}};
     return options;
 };
 
