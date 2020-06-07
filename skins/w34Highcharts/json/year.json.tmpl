@@ -102,7 +102,9 @@
 #if $energyAvg_json is not None
 "energyAvg": $energyAvg_json, 
 #end if
-"units": "$unit.label.rain"#slurp
+#if $lightningSum_json is not None
+"lightningsum": $lightningSum_json 
+#end if
 }, 
 "radiationplot": {
 "radiationmax": $radiationMax_json, 
