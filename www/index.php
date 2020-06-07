@@ -214,7 +214,15 @@ if ($position12=='solaruvds.php') {echo ' <span class="yearpopup"><a alt="Solar 
 if ($position12=='solaruvwu.php') {echo ' <span class="yearpopup"><a alt="UV Guide" title="UV Guide" href="uvindexwu.php" data-lity>'. $chartinfo. " UV Guide </a></span>";}
 if ($position12=='solaruvwu.php') {echo ' <span class="yearpopup"><a alt="Solar Almanac" title="Solar Almanac" href="w34solaralmanac.php" data-lity>'. $chartinfo. " Solar Almanac </a></span>";}
 if ($position12=='solaruvwu.php') {echo ' <span class="yearpopup"><a alt="Solar Chart" title="Solar Chart" href="<?php echo $chartsource ;?>/todaysolar.php" data-lity>&nbsp;'. $menucharticonpage. " Solar chart </a></span>";}
-if ($position12=='eq.php') {echo ' <span class="yearpopup"><a alt="Earthquakes Worldwide" title="Earthquakes Worldwide" href="eqlist.php" data-lity>'. $chartinfo. " Worldwide Earthquakes </a></span>";}?>
+if ($position12=='eq.php') {echo ' <span class="yearpopup"><a alt="Earthquakes Worldwide" title="Earthquakes Worldwide" href="eqlist.php" data-lity>'. $chartinfo. " Worldwide Earthquakes </a></span>";}
+if ($position12=='lightning34.php') {echo '<span class="todaypopup"> <a
+alt="lightning yearly" title="yearly lightning"
+href='.$chartsource."/".$theme1."-charts.html?chart='lightningplot'&span='yearly'&temp='".$weather['temp_units']."'&pressure='".$weather['barometer_units']."'&wind='".$weather['wind_units']."'&rain='".$weather['rain_units']."
+data-lity >".$menucharticonpage." Yearly</a></span>";}
+if ($position12=='lightning34.php') {echo '<span class="todaypopup"> <a
+alt="lightning" title="weekly lightning"
+href='.$chartsource."/".$theme1."-charts.html?chart='lightningplot'&span='weekly'&temp='".$weather['temp_units']."'&pressure='".$weather['barometer_units']."'&wind='".$weather['wind_units']."'&rain='".$weather['rain_units']."
+data-lity >".$menucharticonpage." Weekly</a></span>";}?>
 </div><span class='moduletitle'><?php echo $position12title?></span></span><div id="solar"></div></div>
  <!--position last module for homeweatherstation template-->
   <div class="weather-item"><div class="chartforecast" >
