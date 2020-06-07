@@ -15,7 +15,6 @@ function find_variable($strings, $str, $rstr){
     }
     return "";
 }
-header("Location: index.php");
 $pos = '$'.$_GET['pos'];
 $filetext = file('settings1.php');
 $positions = find_variable($filetext, $pos.'s', '');
@@ -27,9 +26,12 @@ if (strlen($positions) > 0 and strlen($positiontitles) > 0) {
     for ($x = 0; $x < count($titles); $x++) {
         if ($currenttitle == $titles[$x]) {
             $x = ($x + 1) % count($titles); 
-            file_put_contents('settings1.php',find_variable(find_variable($filetext, $pos, $urls[$x]), $pos.'title', $titles[$x]));
+            $strings = find_variable(find_variable($filetext, $pos, $urls[$x]), $pos.'title', $titles[$x]);
+            if (count($strings) > 0)
+                file_put_contents('settings1.php',$strings);
             break;
         }
     }
 }
+header( "refresh:0.2; url=index.php" ); 
 ?>
