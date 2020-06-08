@@ -7609,6 +7609,7 @@ airdescription {
 .air200,
 .air300,
 .air50 {
+  margin-top: 15px;
   width: 5rem;
   height: 4.68rem;
   font-size: 1.4rem;
