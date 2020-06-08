@@ -16,3 +16,4 @@
 12. Removed duplicated documents in www folder
 13. Adjust location of miles widget
 14. Reduce race condition on update section
+15. wind_gust_60min missing and wind conversions in the wrong file
