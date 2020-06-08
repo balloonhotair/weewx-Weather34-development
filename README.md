@@ -1,7 +1,7 @@
 # Weather34 skin for WeeWX
 Weather Station website skin with Live Data for WeeWX. This version is compatible with WeeWX 3.9.2 / Python 2.7 and WeeWX 4.0.0 builds / Python 2.7 and Python 3.7.
 
-Version WX-HC20-IHVN-1.0.2
+Version W34-HC-IMJD-2.0.0
 
 Packaged for installation using its own unique installer.
 
@@ -13,7 +13,7 @@ This version is designed explicitly to harness the powerful WeeWX database to ge
 
 This version is assembled as an install package and uses the WeeWX utility wee_extension to install. This greatly simplifies the installation process from that of previous versions. Depending on your own WeeWX setup, minor edits may be required to be made to weewx.conf and Weather34 skin.conf files. Please see the Weather34 skin Installation Guide for detailed instructions.
 
-# What's New in this Version WX-HC20-IHVN-1.0.2
+# What's New in this Version W34-HC-IMJD-2.0.0
 
 1. Enhancements to Temperature and Temperaturein modules
 
