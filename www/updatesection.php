@@ -28,10 +28,11 @@ if (strlen($positions) > 0 and strlen($positiontitles) > 0) {
             $x = ($x + 1) % count($titles); 
             $strings = find_variable(find_variable($filetext, $pos, $urls[$x]), $pos.'title', $titles[$x]);
             if (count($strings) > 0)
-                file_put_contents('settings1.php',$strings);
+                file_put_contents('settings1.php',$strings,LOCK_EX);
+            sleep(2);
             break;
         }
     }
 }
-header( "refresh:0.2; url=index.php" ); 
+header( "refresh:0.1; url=index.php"); 
 ?>
