@@ -12,3 +12,5 @@
 8. Added lightning monthly chart
 9. Add missing y axis label for lightning
 10.Additional lightning label changes
+11. Readme up issue
+12. Removed duplicated documents in www folder
