@@ -18,3 +18,4 @@
 14. Reduce race condition on update section
 15. wind_gust_60min missing and wind conversions in the wrong file
 16. Cloud height display reversed
+17. CSS adjustment for airqualitymodule.php
