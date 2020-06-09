@@ -21,3 +21,7 @@
 17. CSS adjustment for airqualitymodule.php
 18. Corrected issues with RT windrose chart
 19. Further air quality module CSS adjustments
+20. Air Quality Module updated
+21. AQI info pop up added (aqipopup.php, aqi_info.php)
+22. World AQI Top Row Module added (worldaqitop.php)
+23. UK AQI Top Row added (daqitop.php)
