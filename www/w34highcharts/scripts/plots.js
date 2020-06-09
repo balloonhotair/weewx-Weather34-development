@@ -1122,7 +1122,10 @@ function create_windrose_chart(options, span, seriesData, units){
 function convertlegend(series_record, units, usey = false){
     if (!usey) windrosespeeds = [];
     var totalPercent = 0;
-    var series = series_record.series;
+
+    var series = series_record;
+    if (series.series != null)
+        series = series.series;
     for (var i = 0; i < series.length; i++)
         for (var j = 0; j < series[i].data.length; j++)
             totalPercent += usey ? series[i].data[j].y : series[i].data[j];
@@ -1131,7 +1134,10 @@ function convertlegend(series_record, units, usey = false){
         for (var j = 0; j < parts.length; j++){
             firstspeed = speed;
             if (usey) firstspeed = windrosespeeds[0];
-            speed = convert_wind(series_record.units, units['wind'], parseInt(parts[j]), 0);
+            if (series_record.series == null)
+                speed = parseInt(parts[j]);
+            else
+                speed = convert_wind(series_record.units, units['wind'], parseInt(parts[j]), 0);
             if (!usey) windrosespeeds.push(speed);
             newName += speed;
             if (j + 1 < parts.length && i != 0) newName += "-";
@@ -1608,11 +1614,11 @@ function do_realtime_update(chart, plot_type, units){
                         newdata[speedindex][compassindex] += 1;
                         for (var i = 0; i < newdata.length; i++){
                             for (var j = 0; j < newdata[i].length; j++)
-                                newdata[i][j] = (newdata[i][j]/windrosesamples*100.0);
-                            chart.series[i].setData(newdata[i]);
+                               newdata[i][j] = (newdata[i][j]/windrosesamples*100.0);
+                            chart.series[i].setData(newdata[i],false,false,false);
                         }
-                        convertlegend(chart.series, units, true);
                         chart.redraw();
+                        convertlegend(chart.series, units, true);
                     }
                 }else chart.setTitle(null,{text: getTranslation("Calm")});
             }else{
