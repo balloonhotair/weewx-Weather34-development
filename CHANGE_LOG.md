@@ -19,3 +19,4 @@
 15. wind_gust_60min missing and wind conversions in the wrong file
 16. Cloud height display reversed
 17. CSS adjustment for airqualitymodule.php
+18. Corrected issues with RT windrose chart
