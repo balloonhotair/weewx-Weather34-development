@@ -20,3 +20,4 @@
 16. Cloud height display reversed
 17. CSS adjustment for airqualitymodule.php
 18. Corrected issues with RT windrose chart
+19. Further air quality module CSS adjustments
