@@ -5009,7 +5009,7 @@ body {
 .rainconverter,
 .tempconverter {
   margin-top: 5px;
-  margin-left: 255px
+  margin-left: 245px
 }
 
 .consoleicon {
@@ -5132,7 +5132,7 @@ redtime {
 .tempconvertercirclered,
 .tempconvertercircleyellow {
   align-items: center;
-  width: 3.2rem;
+  width: 4.2rem;
   color: silver;
   font-family: weathertext2;
   height: 1rem;
@@ -5625,9 +5625,7 @@ topdaqi1,
 topdaqi2,
 topdaqi3,
 topdaqi4,
-topdaqi5,
-topdaqi6,
-topdaqi7 {
+topdaqi5 {
   font-family: weathertext2;
   width: 3.3rem;
   height: 2.4rem;
@@ -5654,6 +5652,8 @@ toporange1,
 topred1,
 topyellow1,
 topyellow2,
+topdaqi6,
+topdaqi7,
 topdaqi8,
 topdaqi9,
 topdaqi10 {
@@ -5688,20 +5688,20 @@ topdaqi10 {
 .maxword,
 .minword,
 .minwordl {
-  margin-top: 35px;
+  margin-top: 35px;    
   font-size: .55rem;
   color: #fff;
   z-index: 1;
-  position: absolute
+  position: absolute          
 }
 
 .maxwordlow,
 .minwordlow {
-  margin-top: 35px;
+  margin-top: 35px;    
   font-size: .55rem;
   color: #38383c;
   z-index: 1;
-  position: absolute
+  position: absolute    
 }
 
 topdaqi1 {
@@ -5741,11 +5741,11 @@ topdaqi9 {
 }
 
 topdaqi10 {
-  background: #900
+  background: #ce30ff
 }
 
 topred1 {
-  background: #ce30ff
+  background: #d35d4e
 }
 
 topgreen1 {
@@ -6868,7 +6868,7 @@ valuetextheading2 {
 }
 
 .tempconverter2 {
-  margin-left: 250px
+  margin-left: 240px
 }
 
 .footertext {
@@ -7591,6 +7591,7 @@ airdescription {
 .air200,
 .air300,
 .air50 {
+  margin-top: 15px;
   width: 5rem;
   height: 4.68rem;
   font-size: 1.4rem;
