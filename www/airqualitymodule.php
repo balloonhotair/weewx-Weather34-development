@@ -1,5 +1,5 @@
 <body>
-<?php  include('shared.php');include('common.php');
+<?php  include('shared.php');include('common.php');include('airqualitydata.php');
 // PURPLE AIR additional conversion script included by Andrew Billits 24 April 2018
 function pm25_to_aqi($pm25){
 	if ($pm25 > 500.5) {
@@ -33,19 +33,11 @@ function map($value, $fromLow, $fromHigh, $toLow, $toHigh){
     // Re-zero back to the to range
     return $tmpValue + $toLow;
 }
-$json_string             = file_get_contents("jsondata/purpleair.txt");
-$parsed_json             = json_decode($json_string);
-//$aqiweather["aqi"]       = $parsed_json->{'results'}[1]->{'PM2_5Value'};
-$aqiweather["aqi"]       = number_format(pm25_to_aqi(($parsed_json->{'results'}[0]->{'PM2_5Value'} + $parsed_json->{'results'}[1]->{'PM2_5Value'}) / 2),1);
-$aqiweather["aqiozone"]  = 'N/A';
-$aqiweather["time2"]     = $parsed_json->{'results'}[0]->{'LastSeen'};
-$aqiweather["time"]      = date($timeFormat,$aqiweather["time2"]);
-$aqiweather["city"]      = $parsed_json->{'results'}[0]->{'ID'};
-$aqiweather["label"]     = $parsed_json->{'results'}[0]->{'Label'};
-$a="";if($aqiweather["aqi"]==$a){$aqiweather["aqi"] = "0" ;}
+$aqiweather["aqi"]       = number_format(pm25_to_aqi($pm25),0);
+
 ?>
-<div class="updatedtime"><span><?php if(file_exists('jsondata/purpleair.txt') && time() - filemtime('jsondata/purpleair.txt')<1800) {
-  echo $online." ".date($timeFormat, filemtime('jsondata/purpleair.txt'));
+<div class="updatedtime"><span><?php if(file_exists('airqualitydata.php') && time() - filemtime('airqualitydata.php')<1800) {
+  echo $online." ".date($timeFormat, filemtime('airqualitydata.php'));
   } else {
   echo $offline. '<offline> Offline </offline>';
   }?></div> 
