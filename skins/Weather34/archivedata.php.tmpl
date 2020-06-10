@@ -226,7 +226,7 @@ $weewxapi[170] = "$yesterday.outHumidity.mintime.format(format_string="%Y%m%d%H%
 $weewxapi[200] = "$current.windrun.format(add_label=False, $localize=False)";
 $weewxapi[201] = "$span($time_delta=3600).windGust.max.format(add_label=False, $localize=False)";
 $weewxapi[202] = "$span($hour_delta=3).rain.sum.format(add_label=False, $localize=False)";
-
+$weewxapi[203] = "$current.cloudbase.format(add_label=False, $localize=False)";
 $startcivil = "$almanac(horizon=-6).sun(use_center=1).rise.raw";
 $endcivil = "$almanac(horizon=-6).sun(use_center=1).set.raw";
 $rain_year_start = "$rainyear.start.format(format_string="%b -")";
