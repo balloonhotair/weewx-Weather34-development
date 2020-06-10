@@ -82,8 +82,7 @@
 	$weather["lowtemptime"]        = date($timeFormatShort, $weewxapi[29]);
 	$weather["maxwindtime"]        = date($timeFormatShort, $weewxapi[31]);
 	$weather["maxgusttime"]        = date($timeFormatShort, $weewxapi[33]);
-	$weather["cloudbase"]          = round(($weather["temp"] - $weather["dewpoint"] ) *1000/4.4,1) ; 
-	$weather["cloudbase_units"]    = 'ft' ;	
+	$weather["cloudbase3"]         = $weewxapi[203]; //round(($weather["temp"] - $weather["dewpoint"] ) *1000/4.4,1) ; 	
 	$weather["wind_run"]           = number_format($weather["wind_speed"]/24,3); //10 minute wind run
 	$weather["swversion"]	       = $weewxrt[38];
 	$weather["build"]	       = $weewxrt[39];
