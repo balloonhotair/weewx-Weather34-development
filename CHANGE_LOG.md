@@ -25,3 +25,6 @@
 21. AQI info pop up added (aqipopup.php, aqi_info.php)
 22. World AQI Top Row Module added (worldaqitop.php)
 23. UK AQI Top Row added (daqitop.php)
+24. Added cloudbase data to archivedata.php.tmpl
+25. w34CombineData.php now uses WeeWX cloud base data
+26 Fixed cloud base unit conversion in currentconditions.w34.php
