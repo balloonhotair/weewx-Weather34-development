@@ -28,3 +28,5 @@
 24. Added cloudbase data to archivedata.php.tmpl
 25. w34CombineData.php now uses WeeWX cloud base data 26 Fixed cloud base unit conversion in currentconditions.w34.php
 26. Use lasttime for lightning strike
+27. Created airqualitydata.php.tmpl
+28. Added [[[AIRQUALITYDATA]]] to Weather34 skin.conf
