@@ -125,9 +125,9 @@ $weewxapi[70] = "$span(time_delta=900).inTemp.avg.format(add_label=False, $local
 $weewxapi[71] = "$span(time_delta=900).inHumidity.avg.format(add_label=False, $localize=False)";
 $weewxapi[72] = "$span($time_delta=900).windSpeed.avg.format(add_label=False, $localize=False)";
 $weewxapi[73] = "$span($time_delta=1800).windSpeed.avg.format(add_label=False, $localize=False)";
-$weewxapi[74] = "$month.lightning_strike_count.max.format(add_label=False, $localize=False)";	
-$weewxapi[75] = "$year.lightning_strike_count.max.format(add_label=False, $localize=False)";	
-$weewxapi[76] = "$day.lightning_strike_count.max.format(add_label=False, $localize=False)";	
+$weewxapi[74] = "$month.lightning_strike_count.sum.format(add_label=False, $localize=False)";	
+$weewxapi[75] = "$year.lightning_strike_count.sum.format(add_label=False, $localize=False)";	
+$weewxapi[76] = "$day.lightning_strike_count.sum.format(add_label=False, $localize=False)";	
 $weewxapi[77] = $int(time.time()-time.mktime(datetime.datetime.strptime($year.lightning_distance.lasttime.format(format_string="%Y%m%d%H%M%S"),"%Y%m%d%H%M%S").timetuple()));
 $weewxapi[78] = "N/A";	
 $weewxapi[79] = "N/A";
@@ -226,7 +226,7 @@ $weewxapi[170] = "$yesterday.outHumidity.mintime.format(format_string="%Y%m%d%H%
 $weewxapi[200] = "$current.windrun.format(add_label=False, $localize=False)";
 $weewxapi[201] = "$span($time_delta=3600).windGust.max.format(add_label=False, $localize=False)";
 $weewxapi[202] = "$span($hour_delta=3).rain.sum.format(add_label=False, $localize=False)";
-
+$weewxapi[203] = "$current.cloudbase.format(add_label=False, $localize=False)";
 $startcivil = "$almanac(horizon=-6).sun(use_center=1).rise.raw";
 $endcivil = "$almanac(horizon=-6).sun(use_center=1).set.raw";
 $rain_year_start = "$rainyear.start.format(format_string="%b -")";
