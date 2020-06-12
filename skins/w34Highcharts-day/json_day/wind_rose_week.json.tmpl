@@ -36,12 +36,56 @@
 "samples": $wr86400['samples'],
 "units": "$unit.label.windSpeed"#slurp
 },
-##
 "windroseWeek": {
 "series": $wr604800['windrosejson'],
 "xAxis": {"categories": $wr604800['xAxisCategoriesjson']},
 "yAxis": $wr604800['yAxisjson'],
 "samples": $wr604800['samples'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseHourGust": {
+"series": $wr3600Gust['windrosejson'],
+"xAxis": {"categories": $wr3600Gust['xAxisCategoriesjson']},
+"yAxis": $wr3600Gust['yAxisjson'],
+"samples": $wr3600Gust['samples'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseDayGust": {
+"series": $wr86400Gust['windrosejson'],
+"xAxis": {"categories": $wr86400Gust['xAxisCategoriesjson']},
+"yAxis": $wr86400Gust['yAxisjson'],
+"samples": $wr86400Gust['samples'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseWeekGust": {
+"series": $wr604800Gust['windrosejson'],
+"xAxis": {"categories": $wr604800Gust['xAxisCategoriesjson']},
+"yAxis": $wr604800Gust['yAxisjson'],
+"samples": $wr604800Gust['samples'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseMonth": {#slurp
+"series": $wrmonth['windrosejson'], 
+"xAxis": {"categories": $wrmonth['xAxisCategoriesjson']}, 
+"yAxis": $wrmonth['yAxisjson'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseYear": {#slurp
+"series": $wryear['windrosejson'], 
+"xAxis": {"categories": $wryear['xAxisCategoriesjson']}, 
+"yAxis": $wryear['yAxisjson'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseMonthGust": {#slurp
+"series": $wrmonthGust['windrosejson'], 
+"xAxis": {"categories": $wrmonthGust['xAxisCategoriesjson']}, 
+"yAxis": $wrmonthGust['yAxisjson'],
+"units": "$unit.label.windSpeed"#slurp
+},
+"windroseYearGust": {#slurp
+"series": $wryearGust['windrosejson'], 
+"xAxis": {"categories": $wryearGust['xAxisCategoriesjson']}, 
+"yAxis": $wryearGust['yAxisjson'],
 "units": "$unit.label.windSpeed"#slurp
 }
 }]

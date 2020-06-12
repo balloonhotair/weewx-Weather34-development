@@ -171,17 +171,5 @@
 #if $pm10_0Avg_json is not None
 "pm10_0Avg": $pm10_0Avg_json 
 #end if
-}, 
-"windroseMonth": {#slurp
-"series": $wrmonth['windrosejson'], 
-"xAxis": {"categories": $wrmonth['xAxisCategoriesjson']}, 
-"yAxis": $wrmonth['yAxisjson'],
-"units": "$unit.label.windSpeed"#slurp
-},
-"windroseYear": {#slurp
-"series": $wryear['windrosejson'], 
-"xAxis": {"categories": $wryear['xAxisCategoriesjson']}, 
-"yAxis": $wryear['yAxisjson'],
-"units": "$unit.label.windSpeed"#slurp
 }
 }]
