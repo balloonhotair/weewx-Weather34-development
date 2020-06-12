@@ -166,7 +166,7 @@ jQuery.getMultipleJSON = function(){
 function create_common_options(){
     var commonOptions = {
         chart: {
-            spacing: [10, 10, 0, -1],
+            spacing: [10, 10, 0, 0],
             boost: {useGPUTranslations: false},
             spacingLeft: 20,
         },
@@ -1137,7 +1137,6 @@ function create_windrose_chart(options, span, seriesData, units, plot_type){
         options.xAxis.categories = seriesData[0].windroseYear.xAxis.categories;
     }
     categories = options.xAxis.categories;
-    console.log(plot_type);
     options.title = {text: getTranslation("Wind "+(plot_type=="windroseplot"?"Speed ":"Gust ")) + (do_realtime ? getTranslation('RT') : "")};
     return options;
 };
