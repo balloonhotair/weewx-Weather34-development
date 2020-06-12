@@ -20,10 +20,12 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css">
     </head> 
     <body> 
-       <div style="width:auto;">  
-       <div id="plot_div" style="width:100%; height:435px;"></div>
+    <div id="wrapper">
+        <div id="plot_div"></div>
+        <div id="plot_div1" style="display: inline-block; width:382px;"></div>
+        <div id="plot_div2" style="display: inline-block; width:382px; vertical-align:top;"></div>
     </div>
-    </body> 
+</body>
 </html>
 <?php
     $plot_info = explode(",",$_GET['plot_type']);
@@ -76,8 +78,8 @@
       }
     }
     if (isset($_GET['epoch1']))
-      echo "<script> display_chart({temp:"."'".$units[0]."',pressure:"."'".$units[1]."',wind:"."'".$units[2]."',rain:"."'".$units[3]."'},'".$plot_info[0]."','weekly',false,true,'".$plot_info[4]."',".$plot_info[5].");</script>";
+      echo "<script> (function(){new plot_js({temp:"."'".$units[0]."',pressure:"."'".$units[1]."',wind:"."'".$units[2]."',rain:"."'".$units[3]."'},'".$plot_info[0]."','weekly','".$plot_info[6]."',false,true,'".$plot_info[4]."',".$plot_info[5].")}())</script>";
     else
-      echo "<script> display_chart({temp:"."'".$units[0]."',pressure:"."'".$units[1]."',wind:"."'".$units[2]."',rain:"."'".$units[3]."'},'".$plot_info[0]."','weekly',true,false,'".$plot_info[4]."',".$plot_info[5].");</script>";
+      echo "<script> (function(){new plot_js({temp:"."'".$units[0]."',pressure:"."'".$units[1]."',wind:"."'".$units[2]."',rain:"."'".$units[3]."'},'".$plot_info[0]."','weekly','".$plot_info[6]."',true,false,'".$plot_info[4]."',".$plot_info[5].")}())</script>";
 ?> 
 
