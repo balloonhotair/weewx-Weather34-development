@@ -30,3 +30,4 @@
 26. Use lasttime for lightning strike
 27. Created airqualitydata.php.tmpl
 28. Added [[[AIRQUALITYDATA]]] to Weather34 skin.conf
+29. Dual windrose plots on one iframe
