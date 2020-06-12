@@ -1392,17 +1392,9 @@ class w34highcharts_wind_rose_week(SearchList):
             self.title = self.windrose_dict['title'].strip()
         except KeyError:
             self.title = 'Wind Rose'
-        # Look for plot source, if not defined then set a default
-        try:
-            self.source = self.windrose_dict['source'].strip()
-        except KeyError:
-            pass
-        if self.source != 'windSpeed' and self.source != 'windGust':
-            self.source = 'windSpeed'
-        if self.source == 'windSpeed':
-            self.dir = 'windDir'
-        else:
-            self.dir = 'windGustDir'
+
+        self.source_list =[('windSpeed','windDir'), ('windGust', 'windGustDir')]
+            
         # Look for aggregate type
         try:
             self.agg_type = self.windrose_dict['aggregate_type'].strip().lower()
@@ -1497,7 +1489,7 @@ class w34highcharts_wind_rose_week(SearchList):
         except:
             self.calm_limit = 0.1
 
-    def calcWindRose(self, timespan, db_lookup, period):
+    def calcWindRose(self, timespan, db_lookup, period, source, dir):
         """Function to calculate windrose JSON data for a given timespan."""
 
         # Initialise a dictionary for our results
@@ -1505,14 +1497,14 @@ class w34highcharts_wind_rose_week(SearchList):
         if period <= 604800: # Week or less, get our vectors from archive via getSqlVectors
             # Get our wind speed vector
             (time_vec_speed_start_vt, time_vec_speed_vt, speed_vec_vt) = db_lookup().getSqlVectors(TimeSpan(timespan.stop-period + 1, timespan.stop),
-                                                                                                   self.source,
+                                                                                                   source,
                                                                                                    None,
                                                                                                    None)
             # Convert it
             speed_vec_vt = self.generator.converter.convert(speed_vec_vt)
             # Get our wind direction vector
             (time_vec_dir_start_vt, time_vec_dir_stop_vt, direction_vec_vt) = db_lookup().getSqlVectors(TimeSpan(timespan.stop-period + 1, timespan.stop),
-                                                                                                        self.dir,
+                                                                                                        dir,
                                                                                                         None,
                                                                                                         None)
         else: # Get our vectors from daily summaries using custom getStatsVectors
@@ -1672,7 +1664,6 @@ class w34highcharts_wind_rose_week(SearchList):
             i -= 1
         # Add ] to close our json array
         jsonResult_str += ']'
-
         # Fill our results dictionary
         wr_dict['windrosejson'] = jsonResult_str
         jsonResultNoLabel_str += ']'
@@ -1689,7 +1680,7 @@ class w34highcharts_wind_rose_week(SearchList):
         # Manually construct our legend title in json format
         # Set to null if not required
         if self.legend_title:
-            if self.source == 'windSpeed':
+            if source == 'windSpeed':
                 legend_title_json = "[\"Wind Speed\"]"
                 legend_title_no_label_json = "[\"Wind Speed<br>(" + ")\"]"
             else:
@@ -1718,7 +1709,6 @@ class w34highcharts_wind_rose_week(SearchList):
                      as its only parameter, will return a database manager
                      object.
          """
-
         if (self.sle_dict != None):
                 return [self.sle_dict]
         
@@ -1733,77 +1723,78 @@ class w34highcharts_wind_rose_week(SearchList):
             return Non
         elif hasattr(_period_list, '__iter__') and len(_period_list) > 0:
             sle_dict ={}
-            for _period_raw in _period_list:
-                _period = _period_raw.strip().lower()
-                if _period == 'day':
-                    # normally this will be 86400 sec but it could be a daylight
-                    # savings changeover day
-                    # first get our stop time as a dt object so we can do some
-                    # dt maths
-                    _stop_dt = datetime.datetime.fromtimestamp(timespan.stop)
-                    # then go back 1 day to get our start
-                    _start_dt = _stop_dt - datetime.timedelta(days=1)
-                    period = time.mktime(_stop_dt.timetuple()) - time.mktime(_start_dt.timetuple())
-                elif _period == 'week':
-                    # normally this will be 604800 sec but it could be a daylight
-                    # savings changeover week
-                    # first get our stop time as a dt object so we can do some
-                    # dt maths
-                    _stop_dt = datetime.datetime.fromtimestamp(timespan.stop)
-                    # then go back 7 days to get our start
-                    _start_dt = _stop_dt - datetime.timedelta(days=7)
-                    period = time.mktime(_stop_dt.timetuple()) - time.mktime(_start_dt.timetuple())
-                elif _period == 'month':
-                    # Our start time is midnight one month ago
-                    # Get a time object for midnight
-                    _mn_time = datetime.time(0)
-                    # Get a datetime object for our end datetime
-                    _day_date = datetime.datetime.fromtimestamp(timespan.stop)
-                    # Calculate our start timestamp by combining date 1 month
-                    # ago and midnight time
-                    _start_ts  = int(time.mktime(datetime.datetime.combine(get_ago(_day_date,0,-1),_mn_time).timetuple()))
-                    # So our period is
-                    period = timespan.stop - _start_ts
-                elif _period == 'year':
-                    # Our start time is midnight one year ago
-                    # Get a time object for midnight
-                    _mn_time = datetime.time(0)
-                    # Get a datetime object for our end datetime
-                    _day_date = datetime.datetime.fromtimestamp(timespan.stop)
-                    # Calculate our start timestamp by combining date 1 year
-                    # ago and midnight time
-                    _start_ts  = int(time.mktime(datetime.datetime.combine(get_ago(_day_date, -1, 0),_mn_time).timetuple()))
-                    period = timespan.stop - _start_ts
-                elif _period == 'alltime' or _period == 'all':
-                    _start_ts = startOfDay(db_lookup().firstGoodStamp())
-                    period = timespan.stop - _start_ts
-                else:
-                    try:
-                        period = int(_period)
-                    except:
-                        # default to 1 day but it could be a daylight savings
-                        # changeover day
+            for source in self.source_list:
+                for _period_raw in _period_list:
+                    _period = _period_raw.strip().lower()
+                    if _period == 'day':
+                        # normally this will be 86400 sec but it could be a daylight
+                        # savings changeover day
                         # first get our stop time as a dt object so we can do some
                         # dt maths
                         _stop_dt = datetime.datetime.fromtimestamp(timespan.stop)
                         # then go back 1 day to get our start
                         _start_dt = _stop_dt - datetime.timedelta(days=1)
                         period = time.mktime(_stop_dt.timetuple()) - time.mktime(_start_dt.timetuple())
-                # Set any aggregation types/intervals if we have a period > 1 week
-                if period >= 2678400: # nominal month
-                    if self.agg_type == None:
-                        self.agg_type = 'avg'
-                    if self.agg_interval == None:
-                        self.agg_interval = 86400
-                elif period >= 604800: # nominal week:
-                    if self.agg_interval == None:
-                        self.agg_interval = 3600
-                else:
-                        self.agg_interval = 60
-                # Can now get our windrose data
-                _suffix = str(period) if _period not in ['day', 'week', 'month', 'year', 'all', 'alltime'] else str(_period)
-                sle_dict['wr' + _suffix] = self.calcWindRose(timespan, db_lookup, period)
-
+                    elif _period == 'week':
+                        # normally this will be 604800 sec but it could be a daylight
+                        # savings changeover week
+                        # first get our stop time as a dt object so we can do some
+                        # dt maths
+                        _stop_dt = datetime.datetime.fromtimestamp(timespan.stop)
+                        # then go back 7 days to get our start
+                        _start_dt = _stop_dt - datetime.timedelta(days=7)
+                        period = time.mktime(_stop_dt.timetuple()) - time.mktime(_start_dt.timetuple())
+                    elif _period == 'month':
+                        # Our start time is midnight one month ago
+                        # Get a time object for midnight
+                        _mn_time = datetime.time(0)
+                        # Get a datetime object for our end datetime
+                        _day_date = datetime.datetime.fromtimestamp(timespan.stop)
+                        # Calculate our start timestamp by combining date 1 month
+                        # ago and midnight time
+                        _start_ts  = int(time.mktime(datetime.datetime.combine(get_ago(_day_date,0,-1),_mn_time).timetuple()))
+                        # So our period is
+                        period = timespan.stop - _start_ts
+                    elif _period == 'year':
+                        # Our start time is midnight one year ago
+                        # Get a time object for midnight
+                        _mn_time = datetime.time(0)
+                        # Get a datetime object for our end datetime
+                        _day_date = datetime.datetime.fromtimestamp(timespan.stop)
+                        # Calculate our start timestamp by combining date 1 year
+                        # ago and midnight time
+                        _start_ts  = int(time.mktime(datetime.datetime.combine(get_ago(_day_date, -1, 0),_mn_time).timetuple()))
+                        period = timespan.stop - _start_ts
+                    elif _period == 'alltime' or _period == 'all':
+                        _start_ts = startOfDay(db_lookup().firstGoodStamp())
+                        period = timespan.stop - _start_ts
+                    else:
+                        try:
+                            period = int(_period)
+                        except:
+                            # default to 1 day but it could be a daylight savings
+                            # changeover day
+                            # first get our stop time as a dt object so we can do some
+                            # dt maths
+                            _stop_dt = datetime.datetime.fromtimestamp(timespan.stop)
+                            # then go back 1 day to get our start
+                            _start_dt = _stop_dt - datetime.timedelta(days=1)
+                            period = time.mktime(_stop_dt.timetuple()) - time.mktime(_start_dt.timetuple())
+                    # Set any aggregation types/intervals if we have a period > 1 week
+                    if period >= 2678400: # nominal month
+                        if self.agg_type == None:
+                            self.agg_type = 'avg'
+                        if self.agg_interval == None:
+                            self.agg_interval = 86400
+                    elif period >= 604800: # nominal week:
+                        if self.agg_interval == None:
+                            self.agg_interval = 3600
+                    else:
+                            self.agg_interval = 60
+                    # Can now get our windrose data
+                    _suffix = str(period) if _period not in ['day', 'week', 'month', 'year', 'all', 'alltime'] else str(_period)
+                    sle_dict['wr' + _suffix + ("" if source[0] == 'windSpeed' else "Gust")] = self.calcWindRose(timespan, db_lookup, period, source[0], source[1])
+              
         self.sle_dict = sle_dict
         t2 = time.time()
         logdbg2("w34highchartsWindRose SLE executed in %0.3f seconds" % (t2 - t1))
