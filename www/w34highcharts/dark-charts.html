@@ -24,6 +24,7 @@
                 (function(vars){new plot_js({temp:vars['temp'], pressure:vars['pressure'], wind:vars['wind'], rain:vars['rain']}, vars['chart'], vars['span'], "plot_div");}(vars));
             else{
                 (function(vars){new plot_js({temp:vars['temp'], pressure:vars['pressure'], wind:vars['wind'], rain:vars['rain']}, vars['chart'], vars['span'], "plot_div1");}(vars));
+                vars['chart'] = 'windrosegustplot';
                 (function(vars){new plot_js({temp:vars['temp'], pressure:vars['pressure'], wind:vars['wind'], rain:vars['rain']}, vars['chart'], vars['span'], "plot_div2");}(vars));
            }
         }
