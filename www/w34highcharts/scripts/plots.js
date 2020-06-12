@@ -129,6 +129,7 @@ var realtimeXscaleFactor = 300/realtimeinterval;
 var realtimeinterval = 2;
 var reload_plot_type = null;
 var reload_span = null;
+var url_plot_type = null;
 var compare_dates_ts = [];
 var compare_dates = false;
 var do_realtime = false;
@@ -144,7 +145,6 @@ var categories;
 var utcoffset;
 var chart;
 var url_units;
-var url_plot_type;
 var first_tp_display = true;
 var plot_div;
 
@@ -1599,8 +1599,12 @@ function do_realtime_update(chart, plot_type, units){
         return;
     }
     if (realtimeplot[plot_type][0].length == 0){
-        window.location.href= dayplotsurl+"?units="+units.temp+","+units.pressure+","+units.wind+","+units.rain+"&plot_type="+realtimeplot[plot_type][3]+","+pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd+","+reload_plot_type+":"+reload_span+",true,"+plot_div+"&weewxpathbin="+pathweewxbin+"&epoch="+0;
-        return;
+       $.ajax({url:'getDayChart.php',method:'get',
+           data:{units:units.temp+","+units.pressure+","+units.wind+","+units.rain, plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:0},
+           success:function(data){setTimeout(display_chart,0,units,realtimeplot[plot_type][3],['weekly'],plot_div,false,false,reload_plot_type+":"+reload_span,true,false)},
+           error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
+       });
+       return;
     }
     $.get(realtimefile, function(data) {
         try{
@@ -1641,7 +1645,7 @@ function do_realtime_update(chart, plot_type, units){
                             chart.series[i].setData(newdata[i],false,false,false);
                         }
                         chart.redraw();
-                        convertlegend(chart, units, true);
+                        convertlegend(chart, chart.series, units, true);
                     }
                 }else chart.setTitle(null,{text: getTranslation("Calm")});
             }else{
@@ -1755,7 +1759,12 @@ function display_chart(units, plot_type, span, plt_div, dplots = false, cdates =
                                              break;
                                          }
                                      chart.showLoading('Loading data from database...');
-                                     window.location.href= dayplotsurl+"?units="+units.temp+","+units.pressure+","+units.wind+","+units.rain+"&plot_type="+plot_type+","+pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd+","+reload_plot_type+":"+reload_span+",false,"+plot_div+"&weewxpathbin="+pathweewxbin+"&epoch="+epoch+"&epoch1="+epoch1}};
+                                     $.ajax({url:'getDayChart.php',method:'get',
+                                         data:{units:units.temp+","+units.pressure+","+units.wind+","+units.rain, plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:epoch, epoch1:epoch1},
+                                         success:function(data){setTimeout(display_chart,0,units,plot_type,['weekly'],plot_div,false,true,reload_plot_type+":"+reload_span,false,false)},
+                                         error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
+                                      });
+         }};
          options.exporting.buttons.toggle.menuItems.push({text: "View in full screen", onclick: fullscreen_callback()});
          options.exporting.buttons.toggle.menuItems.push({text: "Export Chart", onclick: export_callback()});
          options.exporting.buttons.toggle.menuItems.push({text: "Reload Chart", onclick: callback(units, plot_type, span, true)});
@@ -1775,7 +1784,9 @@ function display_chart(units, plot_type, span, plt_div, dplots = false, cdates =
                 postcreatefunctions[plot_type][i](chart);
         if (do_realtime || do_radial){
             remove_range_selector(chart);
-            if (do_realtime){         
+            if (do_realtime){ 
+                if (plot_type =='windrosegustplot')
+                    realtimeinterval = 60;
                 for (var j =0; j < realtimeplot[plot_type][0].length; j++)
                     chart.series[j].setData(options.series[j].data.slice(-realtimeinterval*realtimeXscaleFactor));
                 timer2 = setInterval(do_realtime_update, (realtimeplot[plot_type][0].length == 0 ? realtimeplot[plot_type][4]*1000 : realtimeinterval*1000), chart, plot_type, units);
@@ -1802,7 +1813,11 @@ function display_chart(units, plot_type, span, plt_div, dplots = false, cdates =
                                        break;
                                      }
                                 chart.showLoading('Loading data from database...');
-                                window.location.href= dayplotsurl+"?units="+units.temp+","+units.pressure+","+units.wind+","+units.rain+"&plot_type="+plot_type+","+pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd+","+reload_plot_type+":"+reload_span+",false,"+plot_div+"&weewxpathbin="+pathweewxbin+"&epoch="+epoch/1000;
+                                $.ajax({url:'getDayChart.php',method:'get',
+                                    data:{units:units.temp+","+units.pressure+","+units.wind+","+units.rain, plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:epoch/1000},
+                                    success:function(data){setTimeout(display_chart,0,units,plot_type,['weekly'],plot_div,true,false,reload_plot_type+":"+reload_span,false,false)},
+                                    error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
+                                 });
                             }
                             else
                                 setTimeout(display_chart, 0, units, plot_type, ['yearly'], plot_div)}}
@@ -1820,8 +1835,11 @@ $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',
     onSelect: function(dateText) {
         chart.showLoading('Loading data from database...');
-        //window.location.href= dayplotsurl+"?units="+url_units.temp+","+url_units.pressure+","+url_units.wind+","+url_units.rain+"&plot_type="+url_plot_type+","+pathjsondayfiles+"," +jsonfileforplot[url_plot_type][0].join(":")+","+weereportcmd+","+reload_plot_type+":"+reload_span+",false,"+plot_div+"&weewxpathbin="+pathweewxbin+"&epoch="+(new Date(this.value).getTime()/1000);
-        window.location.href= dayplotsurl+"?units="+url_units.temp+","+url_units.pressure+","+url_units.wind+","+url_units.rain+"&plot_type="+url_plot_type+","+pathjsondayfiles+"," +jsonfileforplot[url_plot_type][0].join(":")+","+weereportcmd+","+reload_plot_type+":"+reload_span+",false,"+"plot_div1"+"&weewxpathbin="+pathweewxbin+"&epoch="+(new Date(this.value).getTime()/1000);
+        $.ajax({url:'getDayChart.php',method:'get',
+            data:{units:units.temp+","+units.pressure+","+units.wind+","+units.rain, plot_info:pathjsondayfiles+","+jsonfileforplot[url_plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:+(new Date(this.value).getTime()/1000)},
+            success:function(data){setTimeout(display_chart,0,units,url_plot_type,['weekly'],plot_div,true,false,reload_plot_type+":"+reload_span,false,false)},
+            error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
+        });
     }
 });
 display_chart(units, plot_type, span, plt_div, dplots, cdates, reload_plot_type_span, realtime, radial);
