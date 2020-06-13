@@ -33,3 +33,4 @@
 29. Dual windrose plots on one iframe
 30. Day plots for multiple plots per page
 31. Cloudbase calculation works on US units database also
+32. Month/Year Windrose Gust use GustSpeed from db
