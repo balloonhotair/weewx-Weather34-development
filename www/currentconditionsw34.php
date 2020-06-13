@@ -8,7 +8,6 @@ uppercase{ text-transform:capitalize;}
 //original weather34 script original css/svg/php by weather34 2015-2019 clearly marked as original by weather34//
 include('metar34get.php'); 
 error_reporting(0);
-//$weather["cloudbase3"] = round((anyToC($weather["temp"]) - anyToC($weather["dewpoint"])) * 1000 /2.4444) ;
 $result = date_sun_info(time(), $lat, $lon);$sunr=date_sunrise(time(), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);$suns=date_sunset(time(), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
 $sunr1=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);$suns1=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
 $tw=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, 96, $UTC);$twe=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, 96, $UTC);
@@ -23,10 +22,10 @@ else echo $online,"";echo " ",	date($timeFormat,$forecastime);	?></div>
 <div class="cloudconverter">
 <?php //cloudbase-weather34
 
-if ($windunit =='mph' ||  $windunit =='kts' && $weather["cloudbase3"]*3.281>=1999){echo "<div class=cloudconvertercircle2000>Clouds<tyellow> ".round($weather["cloudbase3"]*3.281,0)."</tyellow><smalltempunit2> ft</tblue><smalltempunit2>" ;}
-else if ($windunit =='mph' ||  $windunit =='kts' && $weather["cloudbase3"]*3.281<1999){echo "<div class=cloudconvertercircle>Clouds<tblue> ".round($weather["cloudbase3"]*3.281,0)."</tblue><smalltempunit2> ft</tblue><smalltempunit2>" ;}
-else if ($windunit =='km/h' ||  $windunit =='m/s' && $weather["cloudbase3"]>=609){echo "<div class=cloudconvertercircle2000>Clouds<tyellow> ".round($weather["cloudbase3"],0)."</tyellow><smalltempunit2> m</tblue><smalltempunit2>" ;}
-else if ($windunit =='km/h' ||  $windunit =='m/s' && $weather["cloudbase3"]<609){echo "<div class=cloudconvertercircle>Clouds<tblue> ".round($weather["cloudbase3"],0)."</tblue><smalltempunit2> m</tblue><smalltempunit2>" ;}
+     if($windunit =='mph' ||$windunit =='kts'&&$weather["cloudbase3"]>=1999){echo "<div class=cloudconvertercircle2000>Clouds<tyellow> ".$weather["cloudbase3"]."</tyellow><smalltempunit2> ft<smalltempunit2>" ;}
+else if($windunit =='mph' ||$windunit =='kts'&&$weather["cloudbase3"]<1999) {echo "<div class=cloudconvertercircle>Clouds<tblue> ".$weather["cloudbase3"]."</tblue><smalltempunit2> ft<smalltempunit2>" ;}
+else if($windunit =='km/h'||$windunit =='m/s'&&$weather["cloudbase3"]>=609) {echo "<div class=cloudconvertercircle2000>Clouds<tyellow> ".$weather["cloudbase3"]."</tyellow><smalltempunit2> m<smalltempunit2>" ;}
+else if($windunit =='km/h'||$windunit =='m/s'&&$weather["cloudbase3"]<609)  {echo "<div class=cloudconvertercircle>Clouds<tblue> ".$weather["cloudbase3"]."</tblue><smalltempunit2> m<smalltempunit2>" ;}
 ?></div></div>
 <div class="darkskyiconcurrent"><span1>
 <?php 
@@ -88,10 +87,6 @@ else echo '<uppercase>',$sky_desc.'</uppercase><br>';
 <?php //weather34 average station data
 echo "Average <oorange>Temperature</oorange> last 60 minutes ";if($weather["temp_avg"]>=20){echo "<oorange>" .$weather["temp_avg"]."</oorange>°<valuetext>".$tempunit;} else if($weather["temp_avg"]<=10){echo "<oblue>" .$weather["temp_avg"]."</oblue>°<valuetext>".$tempunit;}else if($weather["temp_avg"]<20){echo "<ogreen>" .$weather["temp_avg"]."</ogreen>°<valuetext>".$tempunit;}echo "</valuetext><br>";
 echo  "Max <oblue>Wind Gust</oblue> ";
-if ($windunit=='kts'){$windunit="kn";}
-if ($windunit=='kn'){$weather["wind_gust_60min"] = number_format(1.94384*$weather["wind_gust_60min"], 1);}
-if ($windunit=='km/h'){$weather["wind_gust_60min"] = number_format(3.6*$weather["wind_gust_60min"], 1);}
-if ($windunit=='mph'){$weather["wind_gust_60min"] = number_format(2.236936*$weather["wind_gust_60min"], 1);}
 if($weather["wind_gust_60min"]>=50){echo "<ored>" ,number_format(round($weather["wind_gust_60min"],1))."</ored> ".$windunit;}
 else if($weather["wind_gust_60min"]>=30){echo "<oorange>" ,number_format(round($weather["wind_gust_60min"],1))."</oorange><valuetext> ".$windunit;}
 else if($weather["wind_gust_60min"]>=0){echo "<ogreen>" ,number_format(round($weather["wind_gust_60min"],1))."</ogreen><valuetext> ".$windunit;}echo " </valuetext>last 60 minutes ";

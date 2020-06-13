@@ -82,7 +82,7 @@
 	$weather["lowtemptime"]        = date($timeFormatShort, $weewxapi[29]);
 	$weather["maxwindtime"]        = date($timeFormatShort, $weewxapi[31]);
 	$weather["maxgusttime"]        = date($timeFormatShort, $weewxapi[33]);
-	$weather["cloudbase3"]         = $weewxapi[203]; //round(($weather["temp"] - $weather["dewpoint"] ) *1000/4.4,1) ; 	
+	$weather["cloudbase3"]         = $weewxapi[203]; 	
 	$weather["wind_run"]           = number_format($weather["wind_speed"]/24,3); //10 minute wind run
 	$weather["swversion"]	       = $weewxrt[38];
 	$weather["build"]	       = $weewxrt[39];
@@ -612,7 +612,11 @@ if ($pressureunit != $weather["barometer_units"]) {
 		$weather["barometer_units"] = $pressureunit;
 	}
 }
-
+//Convert cloudbase
+if($windunit!=$weather["wind_units"]){
+if(($windunit=='mph'||$windunit=='kts')&&($weather["wind_units"]=='m/s'||$weather["wind_units"]=='km/h')){$weather["cloudbase3"]=round($weather["cloudbase3"]*3.281,0);}
+else if(($windunit=='m/s'||$windunit=='km/h')&&($weather["wind_units"]=='mph'||$weather["wind_units"]=='kts')){$weather["cloudbase3"]=round($weather["cloudbase3"]/3.281,0);}
+}
 // Convert wind speed units if necessary
 if($windunit!=$weather["wind_units"]){if($windunit=='mph'&&$weather["wind_units"]=='kts'){ktsTomph($weather,"wind_speed");ktsTomph($weather,"wind_speed2");	ktsTomph($weather,"wind_speed_trend");ktsTomph($weather,"wind_gust_speed");ktsTomph($weather,"wind_gust_speed2");ktsTomph($weather,"wind_gust_speed_trend");ktsTomph($weather,"wind_speed_max");ktsTomph($weather,"wind_gust_speed_max");ktsTomph($weather,"wind_run");ktsTomph($weather,"wind_speed_avg");ktsTomph($weather,"wind_speed_avg15");ktsTomph($weather,"wind_speed_avg30");ktsTomph($weather,"wind_speed_avgday");ktsTomph($weather,"windamax");ktsTomph($weather,"winddmax");ktsTomph($weather,"windydmax");ktsTomph($weather,"windmmax");ktsTomph($weather,"windymax");ktsTomph($weather,"windrun34");ktsTomph($weather,"wind_gust_60min");$weather["wind_units"]=$windunit;}
 
