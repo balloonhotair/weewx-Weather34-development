@@ -1,6 +1,5 @@
 <?php 
     $plot_info = explode(",",$_GET['plot_info']);
-    $units = explode(",",$_GET['units']);
     $filenames = explode(":", $plot_info[1]);
     for ($i = 0; $i < sizeof($filenames); $i++){ 
       if (isset($weexserver_address) and isset($weexserver_port)){
