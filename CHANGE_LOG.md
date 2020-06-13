@@ -32,3 +32,4 @@
 28. Added [[[AIRQUALITYDATA]]] to Weather34 skin.conf
 29. Dual windrose plots on one iframe
 30. Day plots for multiple plots per page
+31. Cloudbase calculation works on US units database also
