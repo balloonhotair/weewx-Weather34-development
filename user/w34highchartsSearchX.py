@@ -1510,7 +1510,7 @@ class w34highcharts_wind_rose_week(SearchList):
         else: # Get our vectors from daily summaries using custom getStatsVectors
             # Get our data tuples for speed
             (time_vec_speed_vt, speed_dict) = getDaySummaryVectors(db_lookup(),
-                                                                   'wind',
+                                                                   ('wind' if source == 'windSpeed' else 'windGust'),
                                                                    TimeSpan(timespan.stop - period, timespan.stop),
                                                                    ['avg'])
             # Get our vector ValueTuple out of the dictionary and convert it
