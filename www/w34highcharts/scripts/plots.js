@@ -141,6 +141,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	var windrosesamples = 0;
 	var windrosespeeds = [];
 	var windrosespan = windrosespans[0];
+        var prev_speed, prev_compassindex = -1;
 	var categories;
 	var utcoffset;
 	var chart;
@@ -266,7 +267,9 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	                        lineWidth: 1,
 	                        lineWidthPlus: 1}}},
 	        },
-	        rangeSelector: {},
+	        rangeSelector: {
+                        buttonTheme:{style:{color: '#333333'}},
+                },
 	        exporting: {
 	                buttons: {
 	                    contextButton: {
@@ -1115,7 +1118,6 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	};
 	
 	function create_windrose_chart(options, span, seriesData, units, plot_type){
-	    Highcharts.setOptions({lang:{rangeSelectorZoom: ""}});
 	    if (!windrosespans.includes(windrosespan)) windrosespan = windrosespans[1];
 	    if (do_realtime) windrosespan = windrosespans[0];
 	    if (windrosespan == windrosespans[0]){
@@ -1187,6 +1189,9 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	            type: "category",
 	            categories: categories 
 	        },
+	        rangeSelector: {
+                        buttonTheme:{style:{color: '#333333'}},
+                },
 	        navigator: {enabled: false},
 	        scrollbar: {enabled: false},
 	    });
@@ -1633,6 +1638,12 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	                    return;
 	                }
 	                if (speed > 0){
+                            if (plot_type == "windrosegustplot" && speed == prev_speed && compassindex == prev_compassindex)
+                                return;
+                            else{
+                                prev_speed = speed;
+                                prev_compassindex = compassindex;
+                            } 
 	                    chart.setTitle(null,{text: speed +" "+units[realtimeplot[plot_type][2][0].split("_")[1]] + " " + categories[compassindex]});
 	                    for (var j = windrosespeeds.length-1; j > -1; j-=2)
 	                        if (speed < windrosespeeds[j-1] && speed <= windrosespeeds[j]){
@@ -1712,6 +1723,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	        reload_span = reload_plot_type_span.split(":")[1];
 	    }
 	    Highcharts.setOptions({global:{timezoneOffset: 0,}});
+	    Highcharts.setOptions({lang:{rangeSelectorZoom: ""}});
 	    var results, files = [], index = 0;
 	    if (!jsonfileforplot.hasOwnProperty(plot_type) || !(span[0] == "weekly" || span[0] == "yearly")){alert("Bad plot_type (" + plot_type + ") or span (" + span[0] + ")"); return};
 	    for (var i = 0; i < jsonfileforplot[plot_type][span[0] == "weekly" ? 0 : 1].length; i++,index++)
@@ -1794,8 +1806,6 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	            if (plot_type != 'windroseplot' && plot_type != 'windrosegustplot')
 	                remove_range_selector(chart);
 	            if (do_realtime){ 
-	                if (plot_type == 'windrosegustplot')
-	                    realtimeinterval = 60;
 	                for (var j =0; j < realtimeplot[plot_type][0].length; j++)
 	                    chart.series[j].setData(options.series[j].data.slice(-realtimeinterval*realtimeXscaleFactor));
 	                timer2 = setInterval(do_realtime_update, (realtimeplot[plot_type][0].length == 0 ? realtimeplot[plot_type][4]*1000 : realtimeinterval*1000), chart, plot_type, units);
