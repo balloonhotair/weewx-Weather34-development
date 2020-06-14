@@ -24,5 +24,5 @@ var realtimeplot = {
     barometerplot:[[10],[15],['convert_pressure'],['barometerplot'],[150]],
     rainplot:[[47,8],[16,16],['convert_rain','convert_rain'],['rainplot'],[50],[]],
     windroseplot:[[6,11],[13,-1],['convert_wind', null],['windroseplot'],[150]],
-    windrosegustplot:[[40,11],[13,-1],['convert_wind', null],['windrosegustplot'],[150]]
+    windrosegustplot:[[40,51],[13,-1],['convert_wind', null],['windrosegustplot'],[150]]
 };
