@@ -440,19 +440,19 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	    options.rangeSelector = {inputEnabled:false};
 	    options.rangeSelector.buttons = [{
 	        text: '1h',
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[0];return true;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[0];return false;}}
 	    }, {
 	        text: '24h',
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[1];return true;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[1];return false;}}
 	    }, {
 	        text: getTranslation(windrosespans[2]),
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[2];return true;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[2];return false;}}
 	    }, {
 	        text: getTranslation(windrosespans[3]),
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[3];return true;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[3];return false;}}
 	    }, {
 	        text: getTranslation(windrosespans[4]),
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[4];return true;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[4];return false;}}
 	    }, {
 	        text: getTranslation("RT"),
 	        events: {click: function (e) {add_realtime_button(units, plot_type)}}
