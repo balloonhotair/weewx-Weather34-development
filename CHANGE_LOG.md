@@ -35,3 +35,4 @@
 31. Cloudbase calculation works on US units database also
 32. Month/Year Windrose Gust use GustSpeed from db
 33. Windrose Gust tweaks and using 10min gust for display
+34. Fix chk_lightning_count option
