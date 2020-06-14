@@ -580,7 +580,7 @@ class Weather34RealTime(StdService):
             logdbg("RemoteWebserverReport: not active")
         
         try:
-            self.chk_lightning_cnt = True if config_dict['Weather34RealTime'].get('chk_lightning_count') == 'True' else False; 
+            self.chk_lightning_cnt = True if config_dict['Weather34RealTime'].get('chk_lightning_cnt') == 'True' else False; 
         except:
             self.chk_lightning_cnt = False
 
