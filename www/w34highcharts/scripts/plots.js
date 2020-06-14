@@ -437,27 +437,26 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	}
 	
 	function addWindRoseOptions(options, span, seriesData, units, plot_type) {
-	    options.rangeSelector = {inputEnabled:false };
+	    options.rangeSelector = {inputEnabled:false};
 	    options.rangeSelector.buttons = [{
 	        text: '1h',
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[0];return false;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[0];return true;}}
 	    }, {
 	        text: '24h',
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[1];return false;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[1];return true;}}
 	    }, {
 	        text: getTranslation(windrosespans[2]),
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[2];return false;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[2];return true;}}
 	    }, {
 	        text: getTranslation(windrosespans[3]),
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[3];return false;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[3];return true;}}
 	    }, {
 	        text: getTranslation(windrosespans[4]),
-	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[4];return false;}}
+	        events: {click: function (e) {setTimeout(display_chart, 0, units, plot_type, ["weekly"],plot_div);windrosespan=windrosespans[4];return true;}}
 	    }, {
 	        text: getTranslation("RT"),
 	        events: {click: function (e) {add_realtime_button(units, plot_type)}}
 	    }];
-	    options.rangeSelector.selected = 0;
 	    return options
 	};
 	    
@@ -1059,7 +1058,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	        if (do_realtime)
 	            options = create_chart_options(options, 'spline', 'Average Wind Speed/Gust/Direction', units.wind,[['Avg Wind Speed', 'spline'], ['Avg Wind Gust', 'spline'], ['Avg Wind Direction', 'scatter',1,,,{valueSuffix: '\xB0'}]]);
 	        else
-	            options = create_chart_options(options, 'spline', 'Wind Speed/Gust/Direction', units.wind,[['Wind Speed', 'spline'],['Wind Gust', 'spline'],['Wind Direction', 'spline',1,,,{valueSuffix: '\xB0'}]]);
+	            options = create_chart_options(options, 'spline', 'Wind Speed/Gust/Direction', units.wind,[['Wind Speed', 'spline'],['Wind Gust', 'spline'],['Wind Direction', 'scatter',1,,,{valueSuffix: '\xB0'}]]);
 	        options.series[0].data = reinflate_time(convert_wind(seriesData[0].windplot.units, units.wind, seriesData[0].windplot.windSpeed));
 	        options.series[1].data = reinflate_time(convert_wind(seriesData[0].windplot.units, units.wind, seriesData[0].windplot.windGust));
 	        options.series[2].data = reinflate_time(seriesData[0].winddirplot.windDir);
@@ -1146,7 +1145,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	        options.xAxis.categories = seriesData[0].windroseYear.xAxis.categories;
 	    }
 	    categories = options.xAxis.categories;
-	    options.title = {text: getTranslation("Wind "+(plot_type=="windroseplot"?"Speed ":"Gust ")) + (do_realtime ? getTranslation('RT') : "")};
+	    options.title = {text: getTranslation("Wind "+(plot_type=="windroseplot"?"Speed ":"Gust ")) + (do_realtime ? getTranslation('RT') : getTranslation(windrosespan))};
 	    return options;
 	};
 	
@@ -1792,9 +1791,10 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	            for (var i = 0; i < postcreatefunctions[plot_type].length; i++)
 	                postcreatefunctions[plot_type][i](chart);
 	        if (do_realtime || do_radial){
-	            remove_range_selector(chart);
+	            if (plot_type != 'windroseplot' && plot_type != 'windrosegustplot')
+	                remove_range_selector(chart);
 	            if (do_realtime){ 
-	                if (plot_type =='windrosegustplot')
+	                if (plot_type == 'windrosegustplot')
 	                    realtimeinterval = 60;
 	                for (var j =0; j < realtimeplot[plot_type][0].length; j++)
 	                    chart.series[j].setData(options.series[j].data.slice(-realtimeinterval*realtimeXscaleFactor));
