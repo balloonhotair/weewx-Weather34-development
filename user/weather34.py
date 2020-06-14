@@ -580,7 +580,7 @@ class Weather34RealTime(StdService):
             logdbg("RemoteWebserverReport: not active")
         
         try:
-            self.chk_lightning_cnt = True if config_dict['Weather34RealTime'].get('chk_lightning_cnt') == 'True' else False; 
+            self.chk_lightning_cnt = True if config_dict['Weather34RealTime'].get('chk_lightning_count') == 'True' else False; 
         except:
             self.chk_lightning_cnt = False
 
@@ -589,6 +589,7 @@ class Weather34RealTime(StdService):
         except:
             self.cache_debug = False
 
+        loginf("Check lightning Strike Count: " + str(self.chk_lightning_cnt))
         # setup caching
         self.cache_enable = False 
         self.cache_stale_time = 900
@@ -640,13 +641,16 @@ class Weather34RealTime(StdService):
             if k in self.retainedLoopValues:
                 self.retainedLoopValues.pop(k)
         event.packet = self.retainedLoopValues.copy()
-        if self.cache_debug:
-            logdbg("Event packet after: %s" % (event.packet,))
         try:
             with open(self.cache_file, 'w') as out_file:
                 out_file.write(str(self.retainedLoopValues))
         except Exception as e:
             logerr(str(e))	
+        if self.chk_lightning_cnt and event.packet['lightning_strike_count'] == 0:
+            event.packet['lightning_distance'] = None
+            event.packet['lightning_energy'] = None
+        if self.cache_debug:
+            logdbg("Event packet after: %s" % (event.packet,))
 
     def handle_data(self, event_data):
         try:
@@ -825,6 +829,7 @@ class Weather34RealTime(StdService):
 
         data['10min_high_gust'] = self._cvt(
             calc_max_gust_10min(dbm, ts), w_u, 'windSpeed', 'group_speed')
+
         v = calc_avg_winddir_10min(dbm, ts)
         data['10min_avg_wind_bearing'] = v
         data['avg_wind_dir'] = degree_to_compass(v)
@@ -847,10 +852,6 @@ class Weather34RealTime(StdService):
                                          data.get('max_rad'),
                                          self.sunny_threshold)
         data['zambretti_code'] = self.forecast.get_zambretti_code()
-        if self.chk_lightning_cnt and data['lightning_strike_count'] == 0:
-            data['lightning_distance'] = None
-            data['lightning_energy'] = None
-
         return data
 
     def format(self, data, label, places=None):
