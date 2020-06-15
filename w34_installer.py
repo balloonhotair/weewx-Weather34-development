@@ -100,8 +100,8 @@ try:
             for i in range(0, len(copy_list), 2):
                 distutils.dir_util.copy_tree(os.path.join(extract_path, copy_list[i+1].strip()), copy_list[i].strip(), update = do_overwrite)
         locations = {copy_list[i+1]:copy_list[i] for i in range(0, len(copy_list), 2)}
-        paths = ["var pathpws = ", "var pathweewxbin = "]     
-        paths_values = ['/weewx' + locations["www"].split("weewx")[1], locations["user"].split("/user/")[0]]
+        paths = ["var pathweewxbin = "]     
+        paths_values = [locations["user"].split("/user/")[0]]
         change_permissions_recursive([locations["www"]], paths, paths_values)
         if d["delete_extracted_files"] == "True":
             if extract_path != os.getcwd():
