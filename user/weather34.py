@@ -538,6 +538,10 @@ class Weather34RealTime(StdService):
         self.nonesub = d.get('none', 'NULL')
         loginf("'None' values will be displayed as %s" % self.nonesub)
 
+        self.host_ip = socket.gethostbyname(socket.gethostname())
+        if self.host_ip.startswith('127.'):
+            self.host_ip = subprocess.check_output(['hostname', '-s', '-I']).split(" ")[0]
+
         # source unit system is the database unit system
         self.db_us = None
         # initialise packet unit system
@@ -938,6 +942,7 @@ class Weather34RealTime(StdService):
         fields.append(self.format(data, 'lightning_strike_count'))    # 60 *
         fields.append(self.format(data, 'lightning_noise_count'))     # 61 *
         fields.append(self.format(data, 'lightning_disturber_count')) # 62 *
+        fields.append('%s' % str(self.host_ip))                       # 63
         return ' '.join(fields)
       
       
