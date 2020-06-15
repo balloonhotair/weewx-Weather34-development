@@ -5623,12 +5623,42 @@ wfstriketoday {
   left: -100px
 }
 
+topdaqi1,
+topdaqi2,
+topdaqi3,
+topdaqi4,
+topdaqi5 {
+  font-family: weathertext2;
+  width: 3.3rem;
+  height: 2.4rem;
+  font-size: .9em;
+  padding-top: 7px;
+  color: #38383c;
+  border-bottom: 11px solid #38383c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  position: absolute;
+  margin-left: 133px;
+  top: -5px
+}
+topalertyellow,
+topalert,
 topblue1,
 topgreen1,
 toporange1,
 topred1,
 topyellow1,
-topyellow2 {
+topyellow2,
+topdaqi6,
+topdaqi7,
+topdaqi8,
+topdaqi9,
+topdaqi10 {
   font-family: weathertext2;
   width: 3.3rem;
   height: 2.4rem;
@@ -5660,11 +5690,60 @@ topyellow2 {
 .maxword,
 .minword,
 .minwordl {
-  margin-top: 35px;
+  margin-top: 35px; 
   font-size: .55rem;
   color: #fff;
   z-index: 1;
-  position: absolute
+  position: absolute          
+}
+
+.maxwordlow,
+.minwordlow {
+  margin-top: 35px;    
+  font-size: .55rem;
+  color: #38383c;
+  z-index: 1;
+  position: absolute    
+}
+
+topdaqi1 {
+  background: #9cff9c
+}
+
+topdaqi2 {
+  background: #31ff00
+}
+
+topdaqi3 {
+  background: #31cf00
+}
+
+topdaqi4 {
+  background: #ff0
+}
+
+topdaqi5 {
+  background: #ffcf00
+}
+
+topdaqi6 {
+  background: #ff9a00
+}
+
+topdaqi7 {
+  background: #ff6464
+}
+
+topdaqi8 {
+  background: red
+}
+
+topdaqi9 {
+  background: #900
+}
+
+topdaqi10 {
+  background: #ce30ff
 }
 
 topred1 {
@@ -5687,7 +5766,15 @@ topyellow2 {
   margin-left: 157px
 }
 
+.maxwordlow {
+  margin-left: 157px
+}
+
 .minword {
+  margin-left: 48px
+}
+
+.minwordlow {
   margin-left: 48px
 }
 
@@ -7506,6 +7593,7 @@ airdescription {
 .air200,
 .air300,
 .air50 {
+  margin-top: 15px;
   width: 5rem;
   height: 4.68rem;
   font-size: 1.4rem;
