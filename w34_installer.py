@@ -8,7 +8,7 @@ import grp
 import pwd
 import os
 
-def change_permissions_recursive(path_list, paths, paths_values):
+def change_permissions_recursive(path_list):
     uid = pwd.getpwnam("www-data").pw_uid
     gid = grp.getgrnam("www-data").gr_gid
     for p in path_list:
@@ -23,21 +23,6 @@ def change_permissions_recursive(path_list, paths, paths_values):
             for filename in [os.path.join(root, f) for f in files]:
                 os.chmod(filename, (0o777 if "wee_reports_w34" in filename else 0o755))
                 os.chown(filename, uid, gid)
-                if "plots_config.js" in filename:
-                    with open(filename, 'r') as infile:
-                        config_lines = infile.readlines()
-                    count = 0
-                    for j in range(len(config_lines)):
-                        for i in range(len(paths)):
-                            if paths[i] in config_lines[j]:
-                                parts = config_lines[j].split("//")
-                                config_lines[j] = paths[i] + "'" + paths_values[i] + "'" + "     //" + parts[1]
-                                count +=1
-                        if count >= len(paths):
-                            break            
-                    with open(filename, 'w') as outfile:
-                        for i in config_lines:
-                            outfile.write(i)
 
 def find_replace(d, k, v, do_overwite, append = False):
     found = k in d
@@ -100,9 +85,7 @@ try:
             for i in range(0, len(copy_list), 2):
                 distutils.dir_util.copy_tree(os.path.join(extract_path, copy_list[i+1].strip()), copy_list[i].strip(), update = do_overwrite)
         locations = {copy_list[i+1]:copy_list[i] for i in range(0, len(copy_list), 2)}
-        paths = ["var pathweewxbin = "]     
-        paths_values = [locations["user"].split("/user/")[0]]
-        change_permissions_recursive([locations["www"]], paths, paths_values)
+        change_permissions_recursive([locations["www"]])
         if d["delete_extracted_files"] == "True":
             if extract_path != os.getcwd():
                 distutils.dir_util.remove_tree(extract_path)
