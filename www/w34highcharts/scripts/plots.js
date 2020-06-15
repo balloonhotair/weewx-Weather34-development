@@ -1613,7 +1613,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	    }
 	    if (realtimeplot[plot_type][0].length == 0){
 	       $.ajax({url:'getDayChart.php',method:'get',
-	           data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:0},
+	           data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, epoch:0},
 	           success:function(data){setTimeout(display_chart,0,units,realtimeplot[plot_type][3],['weekly'],plot_div,false,false,reload_plot_type+":"+reload_span,true,false)},
 	           error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
 	       });
@@ -1784,7 +1784,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	                                         }
 	                                     chart.showLoading('Loading data from database...');
 	                                     $.ajax({url:'getDayChart.php',method:'get',
-	                                         data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:epoch, epoch1:epoch1},
+	                                         data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, epoch:epoch, epoch1:epoch1},
 	                                         success:function(data){setTimeout(display_chart,0,units,plot_type,['weekly'],plot_div,false,true,reload_plot_type+":"+reload_span,false,false)},
 	                                         error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
 	                                      });
@@ -1837,7 +1837,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	                                     }
 	                                chart.showLoading('Loading data from database...');
 	                                $.ajax({url:'getDayChart.php',method:'get',
-	                                    data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:epoch/1000},
+	                                    data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, epoch:epoch/1000},
 	                                    success:function(data){setTimeout(display_chart,0,units,plot_type,['weekly'],plot_div,true,false,reload_plot_type+":"+reload_span,false,false)},
 	                                    error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
 	                                 });
@@ -1859,7 +1859,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	    onSelect: function(dateText) {
 	        chart.showLoading('Loading data from database...');
 	        $.ajax({url:'getDayChart.php',method:'get',
-	            data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, weewxpathbin:pathweewxbin, epoch:+(new Date(this.value).getTime()/1000)},
+	            data:{plot_info:pathjsondayfiles+","+jsonfileforplot[plot_type][0].join(":")+","+weereportcmd, epoch:+(new Date(this.value).getTime()/1000)},
 	            success:function(data){setTimeout(display_chart,0,units,plot_type,['weekly'],plot_div,true,false,reload_plot_type+":"+reload_span,false,false)},
 	            error:function(data){$("#"+plot_div).load(pathpws + "404.html")}
 	        });
