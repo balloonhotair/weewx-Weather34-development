@@ -5516,12 +5516,43 @@ smalluvunit {
   left: 28.1%
 }
 
+topdaqi1,
+topdaqi2,
+topdaqi3,
+topdaqi4,
+topdaqi5 {
+  font-family: weathertext2;
+  width: 3.3rem;
+  height: 2.4rem;
+  font-size: .9em;
+  padding-top: 7px;
+  color: #2d3a4b;
+  border-bottom: 11px solid #e6e8ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  position: absolute;
+  margin-left: 133px;
+  top: -5px
+}
+
+topalertyellow,
+topalert,
 topblue1,
 topgreen1,
 toporange1,
 topred1,
 topyellow1,
-topyellow2 {
+topyellow2,
+topdaqi6,
+topdaqi7,
+topdaqi8,
+topdaqi9,
+topdaqi10 {
   font-family: weathertext2;
   width: 3.3rem;
   height: 2.4rem;
@@ -5560,6 +5591,55 @@ topyellow2 {
   position: absolute
 }
 
+.maxwordlow,
+.minwordlow {
+  margin-top: 35px;
+  font-size: .55rem;
+  color: #2d3a4b;
+  z-index: 1;
+  position: absolute
+}
+
+topdaqi1 {
+  background: #9cff9c
+}
+
+topdaqi2 {
+  background: #31ff00
+}
+
+topdaqi3 {
+  background: #31cf00
+}
+
+topdaqi4 {
+  background: #ff0
+}
+
+topdaqi5 {
+  background: #ffcf00
+}
+
+topdaqi6 {
+  background: #ff9a00
+}
+
+topdaqi7 {
+  background: #ff6464
+}
+
+topdaqi8 {
+  background: red
+}
+
+topdaqi9 {
+  background: #900
+}
+
+topdaqi10 {
+  background: #ce30ff
+}
+
 topred1 {
   background: #d35d4e
 }
@@ -5592,7 +5672,15 @@ topyellow2 {
   margin-left: 158px
 }
 
+.maxwordlow {
+  margin-left: 158px
+}
+
 .minword {
+  margin-left: 49px
+}
+
+.minwordlow {
   margin-left: 49px
 }
 
@@ -7521,6 +7609,7 @@ airdescription {
 .air200,
 .air300,
 .air50 {
+  margin-top: 15px;
   width: 5rem;
   height: 4.68rem;
   font-size: 1.4rem;
