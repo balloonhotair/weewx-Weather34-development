@@ -2,9 +2,11 @@
     include('../w34CombinedData.php');
     $plot_info = explode(",",$_GET['plot_info']);
     $filenames = explode(":", $plot_info[1]);
-    putenv("PYTHONPATH=".$_GET['weewxpathbin']);
-    if (isset($weather['weewx_ip'])) 
-      $weewxserver_address = $weather['weewx_ip'];
+    if (isset($weather['weewx_ip'])){
+      $data = explode(":", $weather['weewx_ip']);
+      $weewxserver_address = trim($data[0]);
+      putenv("PYTHONPATH=".trim($data[1]));
+    }
     if (!isset($weewxserver_port)) 
       $weewxserver_port = 25252;
     for ($i = 0; $i < sizeof($filenames); $i++){ 
@@ -21,7 +23,7 @@
       if (file_exists($filename))
         unlink($filename);
       $cmd = $plot_info[2]." ".$_GET['epoch']." ".$filename.".tmpl ".getcwd();
-      #print($cmd);
+      //error_log($cmd);
       if (isset($_GET['epoch1'])){
         $s_file1 = explode(".", $filename)[0]."1.json";
         if (file_exists($s_file1))
@@ -39,7 +41,7 @@
           shell_exec(escapeshellcmd($cmd));
         rename($filename, $s_file1);
         $cmd = $plot_info[2]." ".$_GET['epoch1']." ".$filename.".tmpl ".getcwd();
-        #print($cmd);
+        //error_log($cmd);
         if (isset($weewxserver_address) and isset($weewxserver_port)) {
           try {
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
