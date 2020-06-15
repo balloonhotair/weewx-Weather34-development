@@ -1,4 +1,3 @@
-var pathweewx = '/weewx/'             //Path from web server home location to weewx directory
 var pathpws   = '/weewx/w34weather/'               //Path from web server home location to weather34 directory
 var pathweewxbin = '/usr/share/weewx'  //Physical path to weewx include files for wee_report_w34 if DEB installed WeeWX
 
