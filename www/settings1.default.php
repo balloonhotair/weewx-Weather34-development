@@ -127,6 +127,6 @@ $pu_url = "https://www.purpleair.com/json?show=$purpleairID";
 $pu_interval = "3600";
 $pu_filename = "purpleair.txt";
 $services = "ds.me.eq.ki.wu.aq";
-$weexserver_address = NULL;
-$weexserver_port = NULL;
+$weewxserver_address = NULL;
+$weewxserver_port = NULL;
 ?>

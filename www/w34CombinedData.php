@@ -93,6 +93,7 @@
 	$weather["temp_avgtoday"]      =$weewxapi[152];
 	$weather['wind_speed_avg30']   =$weewxapi[158];
 	$weather['wind_speed_avgday']  =$weewxapi[158];
+        $weather['weewx_ip']           =$weewxrt[62];
 	//weather34 windrun
 	$windrunhr=date('G');$windrunmin=(($windrunmin=date('i')/60));
 	$windrunformula=$windrunhr=date('G')+$windrunmin;
