@@ -1619,7 +1619,10 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	       });
 	       return;
 	    }
-	    $.get(realtimefile, function(data) {
+            $.ajax({
+            url: "../realtime.txt",
+            async: false,
+            success: function (data){
 	        try{
 	            var parts = data.split(" ");
 	            if (parts[0] + parts[1] == prevrealtime) return;
@@ -1680,6 +1683,7 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	                        chart.series[j].addPoint([x, check_for_delta_change(plot_type, j, parseFloat(window[realtimeplot[plot_type][2][j]](parts[realtimeplot[plot_type][1][j]],units[realtimeplot[plot_type][2][j].split("_")[1]],parts[realtimeplot[plot_type][0][j]])))], true, true);
 	            }
 	        }catch(err) {console.log(err)}
+             }
 	    });
 	};
 	
