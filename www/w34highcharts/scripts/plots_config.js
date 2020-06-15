@@ -1,8 +1,8 @@
-var pathweewxbin = '/usr/share/weewx'  //Physical path to weewx include files for wee_report_w34 if DEB installed WeeWX
+var pathweewxbin = '/usr/share/weewx'    //Physical path to weewx include files for wee_report_w34 if DEB installed WeeWX
 
-var pathjsonfiles =  "json/";                    //Location weewx report output json files from home location of weewx. DO NOT CHANGE UNLESS YOU CHANGE SKIN DIRECTORY.
-var pathjsondayfiles = "json_day/";                         //Location day report output json files from home location of where wee_report_34 run. DO NOT CHANGE UNLESS YOU CHANGE SKIN DIRECTORY.
-var weereportcmd = "./wee_reports_w34";                     //Command to run wee_report_34. DO NOT CHANGE.
+var pathjsonfiles =  "json/";            //Location weewx report output json files from home location of weewx. DO NOT CHANGE UNLESS YOU CHANGE SKIN DIRECTORY.
+var pathjsondayfiles = "json_day/";      //Location day report output json files from home location of where wee_report_34 run. DO NOT CHANGE UNLESS YOU CHANGE SKIN DIRECTORY.
+var weereportcmd = "./wee_reports_w34";  //Command to run wee_report_34. DO NOT CHANGE.
 
 var autoupdateinterval = 60; //This is seconds
 var realtimeinterval = 10;  //This is seconds
