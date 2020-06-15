@@ -529,7 +529,7 @@ class Weather34RealTime(StdService):
             engine.stn_info.altitude_vt, "meter")[0]
         self.latitude = engine.stn_info.latitude_f
         self.longitude = engine.stn_info.longitude_f
-
+        
         d = config_dict.get('Weather34RealTime', {})
         self.filename = d.get('filename', '/var/www/html/weewx/w34realtime.txt')
         loginf("output goes to %s" % self.filename)
@@ -542,6 +542,7 @@ class Weather34RealTime(StdService):
         if self.host_ip.startswith('127.'):
             self.host_ip = subprocess.check_output(['hostname', '-s', '-I']).split(" ")[0]
 
+        self.bin_path = os.path.dirname(os.path.realpath(__file__)).split("/user")[0]
         # source unit system is the database unit system
         self.db_us = None
         # initialise packet unit system
@@ -942,7 +943,7 @@ class Weather34RealTime(StdService):
         fields.append(self.format(data, 'lightning_strike_count'))    # 60 *
         fields.append(self.format(data, 'lightning_noise_count'))     # 61 *
         fields.append(self.format(data, 'lightning_disturber_count')) # 62 *
-        fields.append('%s' % str(self.host_ip))                       # 63
+        fields.append(str(self.host_ip) + ":" + self.bin_path)        # 63
         return ' '.join(fields)
       
       
