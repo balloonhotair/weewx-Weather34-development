@@ -37,3 +37,4 @@
 33. Windrose Gust tweaks and using 10min gust for display
 34. Fix chk_lightning_count option
 35. Remove unused config entry
+36. Weewx IP in realtime.txt for day plots
