@@ -440,7 +440,7 @@ class RemoteWebserverReport():
                 if len(host) == 0 or host == None:
                     host = socket.gethostbyname(socket.gethostname())
                     if host.startswith('127.'):
-                        host = subprocess.check_output(['hostname', '-s', '-I']).split(" ")[0]
+                        host = subprocess.check_output(['hostname', '-s', '-I']).split(b" ")[0].decode()
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.bind((host, port))
                 s.listen(2)
@@ -540,7 +540,7 @@ class Weather34RealTime(StdService):
 
         self.host_ip = socket.gethostbyname(socket.gethostname())
         if self.host_ip.startswith('127.'):
-            self.host_ip = subprocess.check_output(['hostname', '-s', '-I']).split(" ")[0]
+            self.host_ip = subprocess.check_output(['hostname', '-s', '-I']).split(b" ")[0].decode()
 
         self.bin_path = os.path.dirname(os.path.realpath(__file__)).split("/user")[0]
         # source unit system is the database unit system
