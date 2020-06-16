@@ -5,7 +5,7 @@ Version WX-HC20-IHVN-1.0.2
 
 Packaged for installation using its own unique installer.
 
-This repository contains the WeeWX version of Brian Underdown's Weather34 website template set. Brian's main website is https://weather34.com/homeweatherstation/index.html In January, 2019, Brian asked others to take over the distribution/maintainence of his design whilst he concentrated on development only for MB NanoSD, called Weather34 MB-SMART. 
+This repository contains the WeeWX version of Brian Underdown's Weather34 website template set. Brian's main website is https://weather34.com/homeweatherstation/index.html In January, 2019, Brian asked others to take over the distribution/maintainence of his design whilst he concentrated on development only for MB NanoSD, called Weather34 MB-SMART. This WeeWX version of the template is actively developed by Ian Millard and Jerry Dietrich.
 
 This version requires WeeWX version 3.9.2 or later software. WeeWX is available at http://weewx.com
 
