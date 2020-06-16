@@ -1189,9 +1189,6 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	            type: "category",
 	            categories: categories 
 	        },
-	        rangeSelector: {
-                        buttonTheme:{style:{color: '#333333'}},
-                },
 	        navigator: {enabled: false},
 	        scrollbar: {enabled: false},
 	    });
@@ -1816,6 +1813,10 @@ function plot_js(units, ptype, span, plt_div, dplots = false, cdates = false, re
 	            }
 	            return;
 	        }
+	        chart.update({
+	            rangeSelector: {
+                        buttonTheme:{style:{color: '#333333'}},
+                }});
 	        if (auto_update && timer1 == null){
 	            timer1 = setInterval(do_auto_update, autoupdateinterval*1000, units, plot_type, span, false);
 	            return;
